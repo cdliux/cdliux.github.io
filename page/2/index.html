@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Lewis&#39;s blog</title>
+  <title>Lewis&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Lewis&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Lewis&#39;s blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Lewis Liu">
@@ -68,212 +68,61 @@
     <div class="outer">
       <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/06/04/Java-BigDecimal/" class="archive-article-date">
-  <time datetime="2020-06-04T10:55:21.000Z" itemprop="datePublished">Jun 4</time>
+    <article id="post-Java-Object-类方法概览" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/04/Java-Object-%E7%B1%BB%E6%96%B9%E6%B3%95%E6%A6%82%E8%A7%88/" class="article-date">
+  <time datetime="2020-06-04T08:51:55.000Z" itemprop="datePublished">2020-06-04</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/04/Java-BigDecimal/">Java BigDecimal</a>
+      <a class="article-title" href="/2020/06/04/Java-Object-%E7%B1%BB%E6%96%B9%E6%B3%95%E6%A6%82%E8%A7%88/">Java Object 类方法概览</a>
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/06/04/Centos-7-%E8%BF%90%E8%A1%8CJava%E7%A8%8B%E5%BA%8F/" class="archive-article-date">
-  <time datetime="2020-06-04T10:53:22.000Z" itemprop="datePublished">Jun 4</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/04/Centos-7-%E8%BF%90%E8%A1%8CJava%E7%A8%8B%E5%BA%8F/">Centos 7 运行Java程序</a>
-    </h1>
-  
+        <h5 id="getClass"><a href="#getClass" class="headerlink" title="getClass"></a>getClass</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass();</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/06/04/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  <time datetime="2020-06-04T10:51:46.000Z" itemprop="datePublished">Jun 4</time>
-</a>
+<p>getClass() 是一个 native 方法，返回的是此 Object 对象的类对象/运行时类对象 Class&lt;?&gt;。效果与Object.class 相同。</p>
+<p>首先解释下”类对象”的概念：在Java中，类是是对具有一组相同特征或行为的实例的抽象并进行描述，对象则是此类所描述的特征或行为的具体实例。作为概念层次的类，其本身也具有某些共同的特性，如都具有类名称、由类加载器去加载，都具有包，具有父类，属性和方法等。于是，Java中有专门定义了一个类，java.lang.Class，去描述其他类所具有的这些特性，因此，从此角度去看，类本身也都是属于 Class 类的对象。为与经常意义上的对象相区分，在此称之为”类对象”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">getClassMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.print(<span class="string">"------------------------------"</span>);</span><br><span class="line">        System.out.println(<span class="string">"\ngetClass() 方法"</span>);</span><br><span class="line">        MyBean bean = <span class="keyword">new</span> MyBean();</span><br><span class="line">        System.out.println(bean.getClass());</span><br><span class="line">        System.out.println(MyBean<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">--output</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">pojo</span>.<span class="title">jsonProcess</span>.<span class="title">MyBean</span></span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">pojo</span>.<span class="title">jsonProcess</span>.<span class="title">MyBean</span></span></span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2020/06/04/Java-Object-%E7%B1%BB%E6%96%B9%E6%B3%95%E6%A6%82%E8%A7%88/#more">Read More</a>
+          </p>
+        
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/04/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E5%91%BD%E4%BB%A4/">常用的Docker命令</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/" class="archive-article-date">
-  <time datetime="2020-06-04T10:10:07.000Z" itemprop="datePublished">Jun 4</time>
-</a>
+    </div>
+    <footer class="article-footer">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/">Java Jackson Json 处理_2</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" class="archive-article-date">
-  <time datetime="2020-06-04T09:03:42.000Z" itemprop="datePublished">Jun 4</time>
-</a>
+        <a data-url="http://yoursite.com/2020/06/04/Java-Object-%E7%B1%BB%E6%96%B9%E6%B3%95%E6%A6%82%E8%A7%88/" data-id="ckb0o55tb000564kk5btg2gd6" class="article-share-link" data-share="baidu" data-title="Java Object 类方法概览">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/">Java 装箱拆箱</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/" class="archive-article-date">
-  <time datetime="2020-06-04T08:58:19.000Z" itemprop="datePublished">Jun 4</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/">Java编程中为了性能尽量要做到的一些地方</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  <time datetime="2020-06-04T08:57:44.000Z" itemprop="datePublished">Jun 4</time>
-</a>
+        <a href="http://yoursite.com/2020/06/04/Java-Object-%E7%B1%BB%E6%96%B9%E6%B3%95%E6%A6%82%E8%A7%88/#ds-thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/">Java 中 == 和 equals() 的区别</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/" class="archive-article-date">
-  <time datetime="2020-06-04T08:55:15.000Z" itemprop="datePublished">Jun 4</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/">Java Jackson Json 处理_1</a>
-    </h1>
-  
-
-    </header>
+    </footer>
   </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/" class="archive-article-date">
-  <time datetime="2020-06-04T08:55:15.000Z" itemprop="datePublished">Jun 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/">finalize 方法与对象复活</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/" class="archive-article-date">
-  <time datetime="2020-06-04T08:54:35.000Z" itemprop="datePublished">Jun 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/">使用 Optional 类避免 NPE</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
 </section>
       

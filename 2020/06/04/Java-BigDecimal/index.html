@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java BigDecimal | Lewis&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Java 中的浮点数运算12345678910System.out.println(0.2 + 0.1);System.out.println(0.3 - 0.1);System.out.println(0.2 * 0.1);System.out.println(0.3 &#x2F; 0.1);--output0.2 + 0.1 &#x3D; 0.300000000000000040.2 - 0.1 &#x3D; 0.1999">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java BigDecimal">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/Java-BigDecimal/index.html">
+<meta property="og:site_name" content="Lewis&#39;s blog">
+<meta property="og:description" content="Java 中的浮点数运算12345678910System.out.println(0.2 + 0.1);System.out.println(0.3 - 0.1);System.out.println(0.2 * 0.1);System.out.println(0.3 &#x2F; 0.1);--output0.2 + 0.1 &#x3D; 0.300000000000000040.2 - 0.1 &#x3D; 0.1999">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-04T10:55:21.000Z">
+<meta property="article:modified_time" content="2020-06-04T10:56:02.685Z">
+<meta property="article:author" content="Lewis Liu">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Lewis&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lewis&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="yoursite.com">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-Java-BigDecimal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/04/Java-BigDecimal/" class="article-date">
+  <time datetime="2020-06-04T10:55:21.000Z" itemprop="datePublished">2020-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java BigDecimal
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Java-中的浮点数运算"><a href="#Java-中的浮点数运算" class="headerlink" title="Java 中的浮点数运算"></a>Java 中的浮点数运算</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="number">0.2</span> + <span class="number">0.1</span>);</span><br><span class="line">System.out.println(<span class="number">0.3</span> - <span class="number">0.1</span>);</span><br><span class="line">System.out.println(<span class="number">0.2</span> * <span class="number">0.1</span>);</span><br><span class="line">System.out.println(<span class="number">0.3</span> / <span class="number">0.1</span>);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line"><span class="number">0.2</span> + <span class="number">0.1</span> = <span class="number">0.30000000000000004</span></span><br><span class="line"><span class="number">0.2</span> - <span class="number">0.1</span> = <span class="number">0.19999999999999998</span></span><br><span class="line"><span class="number">0.2</span> * <span class="number">0.1</span> = <span class="number">0.020000000000000004</span></span><br><span class="line"><span class="number">0.3</span> / <span class="number">0.1</span> = <span class="number">2.9999999999999996</span></span><br></pre></td></tr></table></figure>
+
+<p>上方的代码段提示我们 Java 中浮点数的计算结果是不精确的，至于什么，请参考 <a href="https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&mid=2665513140&idx=1&sn=565517e977ac56904305a4a9f9d65012#rd" target="_blank" rel="noopener">浮点数为什么不精确</a>。但是商业计算中要求结果必须精确，为了解决这个问题，需要使用 BigDecimal,它可以表示一个任意大小且精度完全准确的浮点数。</p>
+<a id="more"></a>
+<h4 id="BigDecimal-的常用构造函数"><a href="#BigDecimal-的常用构造函数" class="headerlink" title="BigDecimal  的常用构造函数"></a>BigDecimal  的常用构造函数</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> intvalue = <span class="number">3</span></span><br><span class="line"><span class="keyword">double</span> doubleValue = <span class="number">3.3</span>;</span><br><span class="line">String stringValue = <span class="string">"3.3"</span>;</span><br><span class="line">BigDecimal decimalInt = <span class="keyword">new</span> BigDecimal(intvalue);</span><br><span class="line">BigDecimal decimalDouble = <span class="keyword">new</span> BigDecimal(doubleValue);</span><br><span class="line">BigDecimal decimalString = <span class="keyword">new</span> BigDecimal(stringValue);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"new BigDecimal(intvalue) =&gt; "</span> + decimalInt);</span><br><span class="line">System.out.println(<span class="string">"new BigDecimal(doubleValue) =&gt; "</span> + decimalDouble);</span><br><span class="line">System.out.println(<span class="string">"new BigDecimal(stringValue) =&gt; "</span> + decimalString);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line"><span class="keyword">new</span> BigDecimal(intvalue) =&gt; <span class="number">3</span></span><br><span class="line"><span class="keyword">new</span> BigDecimal(doubleValue) =&gt; <span class="number">3.29999999999999982236431605997495353221893310546875</span></span><br><span class="line"><span class="keyword">new</span> BigDecimal(stringValue) =&gt; <span class="number">3.3</span></span><br></pre></td></tr></table></figure>
+<p>此处注意如果使用 BigDecimal(double val) 初始化 BigDecimal 时，同样会存在精度丢失的问题，因为 double 类型的数据由于上面的提到的计算机无法精确表示浮点数的原因，传入此构造函数的数据同样是不精确的。所以在实际的使用中需要将浮点数转为 String 再使用，因为使用 String 传入的结果是准确的，可预知的。</p>
+<h4 id="正确处理-Double-类型的数据"><a href="#正确处理-Double-类型的数据" class="headerlink" title="正确处理 Double 类型的数据"></a>正确处理 Double 类型的数据</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> doubleValue = <span class="number">3.3</span>;</span><br><span class="line"></span><br><span class="line">BigDecimal decimalDouble1 = <span class="keyword">new</span> BigDecimal(doubleValue);</span><br><span class="line">BigDecimal decimalDouble2 = <span class="keyword">new</span> BigDecimal(String.valueOf(doubleValue));</span><br><span class="line">BigDecimal decimalDouble3 = <span class="keyword">new</span> BigDecimal(Double.toString(doubleValue));</span><br><span class="line">BigDecimal decimalDouble4 = BigDecimal.valueOf(doubleValue);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"doubleValue: "</span> + doubleValue);</span><br><span class="line">System.out.println(<span class="string">"new BigDecimal(doubleValue) =&gt; "</span> + decimalDouble1);</span><br><span class="line">System.out.println(<span class="string">"new BigDecimal(String.valueOf(doubleValue)) =&gt; "</span> + decimalDouble2);</span><br><span class="line">System.out.println(<span class="string">"new BigDecimal(Double.toString(doubleValue)) =&gt; "</span> + decimalDouble3);</span><br><span class="line">System.out.println(<span class="string">"BigDecimal.valueOf(doubleValue) =&gt; "</span> + decimalDouble4);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">doubleValue: <span class="number">3.3</span></span><br><span class="line"><span class="keyword">new</span> BigDecimal(doubleValue) =&gt; <span class="number">3.29999999999999982236431605997495353221893310546875</span></span><br><span class="line"><span class="keyword">new</span> BigDecimal(String.valueOf(doubleValue)) =&gt; <span class="number">3.3</span></span><br><span class="line"><span class="keyword">new</span> BigDecimal(Double.toString(doubleValue)) =&gt; <span class="number">3.3</span></span><br><span class="line">BigDecimal.valueOf(doubleValue) =&gt; <span class="number">3.3</span></span><br></pre></td></tr></table></figure>
+<p>使用 BigDecimal(String val) 或者静态方法 BigDecimal.valueOf(doubleValue) 都能得到准确的结果，valueOf 实际上也是调用 Double.toString() 方法获取的值。</p>
+<h4 id="四则运算"><a href="#四则运算" class="headerlink" title="四则运算"></a>四则运算</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal oprator1 = <span class="keyword">new</span> BigDecimal(<span class="string">"4.5"</span>);</span><br><span class="line">BigDecimal oprator2 = <span class="keyword">new</span> BigDecimal(<span class="string">"1.3"</span>);</span><br><span class="line"></span><br><span class="line">BigDecimal addResult = oprator1.add(oprator2);</span><br><span class="line">BigDecimal subResult = oprator1.subtract(oprator2);</span><br><span class="line">BigDecimal multipyResult = oprator1.multiply(oprator2);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">BigDecimal divideResult = oprator1.divide(oprator2);</span><br><span class="line">System.out.println(<span class="string">"4.5 / 1.3 = "</span> + divideResult);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">System.out.println(<span class="string">"4.5 / 1.3 = "</span> + ex.getMessage());</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"4.5 + 1.3 = "</span> + addResult);</span><br><span class="line">System.out.println(<span class="string">"4.5 - 1.3 = "</span> + subResult);</span><br><span class="line">System.out.println(<span class="string">"4.5 * 1.3 = "</span> + multipyResult);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line"><span class="number">4.5</span> / <span class="number">1.3</span> = Non-terminating decimal expansion; no exact representable decimal result.</span><br><span class="line"><span class="number">4.5</span> + <span class="number">1.3</span> = <span class="number">5.8</span></span><br><span class="line"><span class="number">4.5</span> - <span class="number">1.3</span> = <span class="number">3.2</span></span><br><span class="line"><span class="number">4.5</span> * <span class="number">1.3</span> = <span class="number">5.85</span></span><br></pre></td></tr></table></figure>
+<p>由于 BigDecimal 不是基础数据类型，所以不能使用四则运算符进行运算，需要使用 BigDecimal 类提供的对应方法。</p>
+<table>
+<thead>
+<tr>
+<th>add(BigDecimal value)</th>
+<th>加法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>subtract(BigDecimal value)</td>
+<td>减法</td>
+</tr>
+<tr>
+<td>multipyResult(BigDecimal value)</td>
+<td>乘法</td>
+</tr>
+<tr>
+<td>divide(BigDecimal value)</td>
+<td>除法</td>
+</tr>
+</tbody></table>
+<p>需要注意的是，当使用 divide(BigDecimal value) 进行除法运算时，如果无法除尽，将抛出一个异常：java.lang.ArithmeticException: Non-terminating decimal expansion; no exact representable decimal result.<br>所以，在进行除法运算的时候需要指定结果的小数位数以及结果的截断方式。</p>
+<h4 id="获取小数位数"><a href="#获取小数位数" class="headerlink" title="获取小数位数"></a>获取小数位数</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal num1 = <span class="keyword">new</span> BigDecimal(<span class="string">"123.12"</span>);</span><br><span class="line">BigDecimal num2 = <span class="keyword">new</span> BigDecimal(<span class="string">"123.1200"</span>);</span><br><span class="line">BigDecimal num3 = <span class="keyword">new</span> BigDecimal(<span class="string">"1234"</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"123.12 的小数位数: "</span> + num1.scale());</span><br><span class="line">System.out.println(<span class="string">"123.1200 的小数位数: "</span> + num2.scale());</span><br><span class="line">System.out.println(<span class="string">"1234 的小数位数: "</span> + num3.scale());</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line"><span class="number">123.12</span> 的小数位数: <span class="number">2</span></span><br><span class="line"><span class="number">123.1200</span> 的小数位数: <span class="number">4</span></span><br><span class="line"><span class="number">1234</span> 的小数位数: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>使用 scale() 方法可以获取一个 BigDecimal 的小数位数，类似的，在 BigDecimal 各个方法签名中的 scale,都是指小数的位数。</p>
+<h4 id="正确地进行除法运算"><a href="#正确地进行除法运算" class="headerlink" title="正确地进行除法运算"></a>正确地进行除法运算</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal oprator1 = <span class="keyword">new</span> BigDecimal(<span class="string">"1"</span>);</span><br><span class="line">BigDecimal oprator2 = <span class="keyword">new</span> BigDecimal(<span class="string">"0.33"</span>);</span><br><span class="line">BigDecimal divideResult = oprator1.divide(oprator2,<span class="number">4</span>, RoundingMode.DOWN);</span><br><span class="line">BigDecimal divideResult2 = oprator1.divide(oprator2,<span class="number">4</span>, RoundingMode.HALF_UP);</span><br><span class="line">System.out.println(<span class="string">"直接截断，1 / 3 = "</span> + divideResult);</span><br><span class="line">System.out.println(<span class="string">"四舍五入，1 / 3 = "</span> + divideResult2);</span><br></pre></td></tr></table></figure>
+<p>使用 divide(BigDecimal divisor, int scale, RoundingMode roundingMode) 方法传入结果保留的小数位数以及结果的截断方式，可以有效的避免除法运算出现异常。<br>RoundingMode 是一个枚举，包含以下值，常用的四舍五入对应 HALF_UP</p>
+<h4 id="正确地比较-BigDecimal"><a href="#正确地比较-BigDecimal" class="headerlink" title="正确地比较 BigDecimal"></a>正确地比较 BigDecimal</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal num1 = <span class="keyword">new</span> BigDecimal(<span class="string">"123.12"</span>);</span><br><span class="line">BigDecimal num2 = <span class="keyword">new</span> BigDecimal(<span class="string">"123.1200"</span>);</span><br><span class="line">System.out.println(<span class="string">"num1: "</span> + num1);</span><br><span class="line">System.out.println(<span class="string">"num2: "</span> + num2);</span><br><span class="line">System.out.println(<span class="string">"num1.equals(num2) =&gt; "</span> + num1.equals(num2));</span><br><span class="line">System.out.println(<span class="string">"num1.equals(num2.stripTrailingZeros()) =&gt; "</span> + num1.equals(num2.stripTrailingZeros()));</span><br><span class="line">System.out.println(<span class="string">"num1.compareTo(num2) =&gt; "</span> + num1.compareTo(num2));</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">num1: <span class="number">123.12</span></span><br><span class="line">num2: <span class="number">123.1200</span></span><br><span class="line">num1.equals(num2) =&gt; <span class="keyword">false</span></span><br><span class="line">num1.equals(num2.stripTrailingZeros()) =&gt; <span class="keyword">true</span></span><br><span class="line">num1.compareTo(num2) =&gt; <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>使用 equals() 方法可以比较两个 BigDecimal 是否相等，但是此方法不但要求两个数的值相等，还要求 scale() 也相等。所以直接比较 123.12 和 123.1200 的时候会发现结果不是 true。需要使用 stripTrailingZeros() 方法去掉尾部的 0 之后比较结果才相等。<br>而使用 compareTo() 方法则可以准确的对两个数的值进行比较，返回值是 负数，正数，0，分别表示小于，大于，等于。所以，推荐使用 compareTo() 比较两个 BigDecimal 是否相等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/04/Java-BigDecimal/" data-id="ckb0o55t5000164kkd670fofp" class="article-share-link" data-share="baidu" data-title="Java BigDecimal">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/04/Java-BigDecimal/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/06/04/Centos-7-%E8%BF%90%E8%A1%8CJava%E7%A8%8B%E5%BA%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Centos 7 运行Java程序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/06/04/Java-BigDecimal/" data-title="Java BigDecimal" data-url="http://yoursite.com/2020/06/04/Java-BigDecimal/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/04/Java-BigDecimal/">Java BigDecimal</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Centos-7-%E8%BF%90%E8%A1%8CJava%E7%A8%8B%E5%BA%8F/">Centos 7 运行Java程序</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E5%91%BD%E4%BB%A4/">常用的Docker命令</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/">Java Jackson Json 处理_2</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/">Java 装箱拆箱</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://juejin.im/post/5db5c1016fb9a0207a6ddd37" target="_blank">掘金</a>
+          </li>
+        
+          <li>
+            <a href="https://github.com/cdliux" target="_blank">github</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Lewis Liu<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="totop"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
