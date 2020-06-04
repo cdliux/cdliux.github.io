@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="空指针异常在日常开发中大家应该都遇到过，一旦没处理好，程序直接将其抛出将非常影响体验。 在阿里巴巴的 Java 开发手册中针对 NPE 给出了如下的建议：  【推荐】防止 NPE，是程序员的基本修养，注意 NPE 产生的场景：1） 返回类型为基本数据类型，return 包装数据类型的对象时，自动拆箱有可能产生 NPE。反例：public int f() { return Integer 对象}，">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/5/18/17228412f16bddcf?w=1205&h=229&f=png&s=24659">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/5/18/1722840b8aee8aa9?w=1187&h=106&f=png&s=4192">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19433926-5b9834a00206305b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19433926-937a20aba9c48e08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1187/format/webp">
 <meta property="article:published_time" content="2020-06-04T08:54:35.000Z">
-<meta property="article:modified_time" content="2020-06-04T10:18:45.026Z">
+<meta property="article:modified_time" content="2020-06-04T10:34:45.270Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2020/5/18/17228412f16bddcf?w=1205&h=229&f=png&s=24659">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/19433926-5b9834a00206305b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -104,7 +104,7 @@
 <a id="more"></a>
 
 <h4 id="创建一个-Optional-实例"><a href="#创建一个-Optional-实例" class="headerlink" title="创建一个 Optional 实例"></a>创建一个 Optional 实例</h4><p>Optional 类提供了 3 个静态方法来创建一个 Optional 实例</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/5/18/17228412f16bddcf?w=1205&h=229&f=png&s=24659" alt="static method.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19433926-5b9834a00206305b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="static method.png"></p>
 <ul>
 <li><h5 id="empty"><a href="#empty" class="headerlink" title="empty()"></a>empty()</h5><p>直接返回一个空的 Optional</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ptional&lt;String&gt; emptyOpt = Optional.empty();</span><br></pre></td></tr></table></figure>
@@ -119,7 +119,7 @@
 
 </li>
 </ul>
-<h4 id="isPresent-与-get"><a href="#isPresent-与-get" class="headerlink" title="isPresent() 与 get()"></a>isPresent() 与 get()</h4><p><img src="https://user-gold-cdn.xitu.io/2020/5/18/1722840b8aee8aa9?w=1187&h=106&f=png&s=4192" alt="get和isPresent.png"></p>
+<h4 id="isPresent-与-get"><a href="#isPresent-与-get" class="headerlink" title="isPresent() 与 get()"></a>isPresent() 与 get()</h4><p><img src="https://upload-images.jianshu.io/upload_images/19433926-937a20aba9c48e08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1187/format/webp" alt="get和isPresent.png"></p>
 <ul>
 <li><h5 id="isPresent"><a href="#isPresent" class="headerlink" title="isPresent()"></a>isPresent()</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPresent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> value != <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -175,7 +175,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/" data-id="ckb0n0nur000744kkgapnbz97" class="article-share-link" data-share="baidu" data-title="使用 Optional 类避免 NPE">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/" data-id="ckb0n8u8m000730kk7wix7pi6" class="article-share-link" data-share="baidu" data-title="使用 Optional 类避免 NPE">Share</a>
       
 
       
