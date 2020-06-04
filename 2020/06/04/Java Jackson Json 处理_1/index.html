@@ -1,0 +1,425 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java Jackson Json 处理_1 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目前我们 Java 框架中使用的 Json 处理组件是 Jackson,所以这里学习下 Jackson 一些基础特性。 Jackson 的核心模块由三部分组成。  jackson-core，核心包，提供基于”流模式”解析的相关 API，它包括 JsonPaser 和 JsonGenerator。 Jackson 内部实现正是通过高性能的流模式 API 的 JsonGenerator 和 JsonP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Jackson Json 处理_1">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="目前我们 Java 框架中使用的 Json 处理组件是 Jackson,所以这里学习下 Jackson 一些基础特性。 Jackson 的核心模块由三部分组成。  jackson-core，核心包，提供基于”流模式”解析的相关 API，它包括 JsonPaser 和 JsonGenerator。 Jackson 内部实现正是通过高性能的流模式 API 的 JsonGenerator 和 JsonP">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-04T08:55:15.000Z">
+<meta property="article:modified_time" content="2020-06-04T10:18:45.025Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="yoursite.com">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-Java Jackson Json 处理_1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/" class="article-date">
+  <time datetime="2020-06-04T08:55:15.000Z" itemprop="datePublished">2020-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java Jackson Json 处理_1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>目前我们 Java 框架中使用的 Json 处理组件是 Jackson,所以这里学习下 Jackson 一些基础特性。</p>
+<p>Jackson 的核心模块由三部分组成。</p>
+<ul>
+<li>jackson-core，核心包，提供基于”流模式”解析的相关 API，它包括 JsonPaser 和 JsonGenerator。 Jackson 内部实现正是通过高性能的流模式 API 的 JsonGenerator 和 JsonParser 来生成和解析 json。</li>
+<li>jackson-annotations，注解包，提供标准注解功能；</li>
+<li>jackson-databind ，数据绑定包， 提供基于”对象绑定” 解析的相关 API （ ObjectMapper ） 和”树模型” 解析的相关 API （JsonNode）；基于”对象绑定” 解析的 API 和”树模型”解析的 API 依赖基于”流模式”解析的 API。</li>
+</ul>
+<a id="more"></a>
+<h4 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h4><ul>
+<li><h5 id="ObjectMapper"><a href="#ObjectMapper" class="headerlink" title="ObjectMapper"></a>ObjectMapper</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Seller seller = <span class="keyword">new</span> Seller(<span class="string">"A001"</span>, <span class="string">"Lewis"</span>, <span class="string">"address1"</span>);</span><br><span class="line">String sellerStr = objectMapper.writeValueAsString(seller);</span><br><span class="line">System.out.println(<span class="string">"objectMapper.writeValueAsString -&gt; "</span> + sellerStr);</span><br><span class="line">String sellerJson = <span class="string">"&#123;\"sellerId\":\"A001\",\"sellerName\":\"Lewis\",\"sellerAddress\":&#123;\"countryCode\":null,\"stateCode\":null,\"city\":null,\"zipCode\":null,\"address1\":\"address1\",\"address2\":null&#125;&#125;"</span>;</span><br><span class="line">Seller deserializedSeller = objectMapper.readValue(sellerJson,Seller<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p>  ObjectMapper 通过 writeValue 系列方法 将 java 对 象序列化 为 json，并 将 json 存储成不同的格式，String（writeValueAsString），Byte Array（writeValueAsString），Writer， File，OutStream 和 DataOutput。</p>
+<p>  ObjectMapper 通过 readValue 系列方法从不同的数据源像 String ， Byte Array， Reader，File，URL， InputStream 将 json 反序列化为 java 对象。</p>
+<p>  在使用 Object Mapper的时候需要注意，由于它是一个重量级对象，所以推荐重复使用此对象，官方描述如下：</p>
+<blockquote>
+<p>Reuse heavy-weight objects: <code>ObjectMapper</code> (data-binding) and <code>JsonFactory</code> (streaming API)</p>
+</blockquote>
+<p>  在我们 Java 开发-效率篇中同样也提到了这个问题：</p>
+<blockquote>
+<p><strong>ObjectMapper开销</strong><br>ObjectMapper属于重量级对象，不允许在方法级别构造它。</p>
+</blockquote>
+<p>  相关配置</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//反序列化相关配置</span></span><br><span class="line"><span class="comment">//忽略在 Json 中存在但是 Java 实体中不存在的属性</span></span><br><span class="line">objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//序列化相关配置</span></span><br><span class="line"><span class="comment">//设置序列化的日期格式</span></span><br><span class="line">objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, <span class="keyword">false</span>);</span><br><span class="line"><span class="comment">//忽略为 Null 的属性</span></span><br><span class="line"> objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);</span><br><span class="line"><span class="comment">//忽略为默认值的属性</span></span><br><span class="line">objectMapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);</span><br></pre></td></tr></table></figure>
+
+<p>  注意：使用过程中不要更改ObjectMappers设置。映射器使用后，由于序列化程序和反序列化程序的缓存，并非所有设置都生效。配置一次实例，第一次使用后不要更改设置。这样做是为了线程安全和性能。</p>
+<ul>
+<li><h4 id="Jackson-常用注解"><a href="#Jackson-常用注解" class="headerlink" title="Jackson 常用注解"></a>Jackson 常用注解</h4><p>由于 Jaskson 的注解部分在开发中还没深入使用过，这里参考的 <a href="https://www.baeldung.com/jackson-annotations" target="_blank" rel="noopener">Jackson Annotation Examples</a>,学习常用的注解.</p>
+<ul>
+<li><h4 id="序列化注解"><a href="#序列化注解" class="headerlink" title="序列化注解"></a>序列化注解</h4><ul>
+<li><h5 id="JsonAnyGetter"><a href="#JsonAnyGetter" class="headerlink" title="@JsonAnyGetter"></a>@JsonAnyGetter</h5><p>将 Map 中的每个 key 都序列化为一个标准属性，接受一个 enabled 参数，为 false 时此注解不生效。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtendableBean</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, String&gt; properties;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JsonAnyGetter</span>(enabled = <span class="keyword">true</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">getProperties</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> properties;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">--ExtendableBean</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtendableBean</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, String&gt; properties;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JsonAnyGetter</span>(enabled = <span class="keyword">true</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">getProperties</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> properties;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;       </span><br><span class="line">--invoke</span><br><span class="line">ExtendableBean myBean = <span class="keyword">new</span> ExtendableBean(<span class="string">"myBean"</span>);</span><br><span class="line">myBean.add(<span class="string">"prop1"</span>,<span class="string">"value1"</span>);</span><br><span class="line">myBean.add(<span class="string">"prop2"</span>,<span class="string">"value2"</span>);</span><br><span class="line">String result = objectMapper.writeValueAsString(myBean);</span><br><span class="line">System.out.println(<span class="string">"useJsonAnyGetter -&gt; "</span> + result);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">useJsonAnyGetter -&gt; &#123;<span class="string">"name"</span>:<span class="string">"myBean"</span>,<span class="string">"prop2"</span>:<span class="string">"value2"</span>,<span class="string">"prop1"</span>:<span class="string">"value1"</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonGetter"><a href="#JsonGetter" class="headerlink" title="@JsonGetter"></a>@JsonGetter</h5><p>用于标记一个方法为序列化时的 Getter 方法.根据测试结果，@JsonProperty 也能实现这样的效果，个人理解是为了让表意更加清晰。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">--ExtendableBean</span><br><span class="line"><span class="meta">@JsonGetter</span>(<span class="string">"sellerName"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">--invoke</span><br><span class="line">ExtendableBean myBean = <span class="keyword">new</span> ExtendableBean(<span class="string">"myBean"</span>);</span><br><span class="line">String result = objectMapper.writeValueAsString(myBean);</span><br><span class="line">System.out.println(<span class="string">"useJsonAnyGetter -&gt; "</span> + result);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">useJsonAnyGetter -&gt; &#123;<span class="string">"sellerName"</span>:<span class="string">"myBean"</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonPropertyOrder"><a href="#JsonPropertyOrder" class="headerlink" title="@JsonPropertyOrder"></a>@JsonPropertyOrder</h5><p>用于指定序列化时属性的顺序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--ExtendableBean</span><br><span class="line"><span class="meta">@JsonPropertyOrder</span>(&#123;<span class="string">"name"</span>,<span class="string">"properties"</span>,<span class="string">"id"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtendableBean</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">--invoke</span><br><span class="line">System.out.println(<span class="string">"JsonPropertyOrder 用于指定序列化时属性的顺序"</span>);</span><br><span class="line">ExtendableBean myBean = <span class="keyword">new</span> ExtendableBean(<span class="string">"myBean"</span>);</span><br><span class="line">myBean.setId(Integer.valueOf(<span class="number">1</span>));</span><br><span class="line">myBean.add(<span class="string">"prop1"</span>,<span class="string">"value1"</span>);</span><br><span class="line">myBean.add(<span class="string">"prop2"</span>,<span class="string">"value2"</span>);</span><br><span class="line">String result = objectMapper.writeValueAsString(myBean);</span><br><span class="line">System.out.println(<span class="string">"useJsonAnyGetter -&gt; "</span> + result);</span><br><span class="line">--output</span><br><span class="line">seJsonPropertyOrder -&gt; &#123;<span class="string">"sellerName"</span>:<span class="string">"myBean"</span>,<span class="string">"id"</span>:<span class="number">1</span>,<span class="string">"prop2"</span>:<span class="string">"value2"</span>,<span class="string">"prop1"</span>:<span class="string">"value1"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同时，可以使用 @JsonPropertyOrder(alphabetic=true) 让结果按字母顺序自动排序。测试时发现，此注解对 Map 类型属性不生效。</p>
+</li>
+<li><h5 id="JsonRawValue"><a href="#JsonRawValue" class="headerlink" title="@JsonRawValue"></a>@JsonRawValue</h5><p>用于将属性值中的 Json 值也进行序列化，而不是原样输出.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">--RawBean</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RawBean</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JsonRawValue</span></span><br><span class="line">    <span class="keyword">private</span> String json;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RawBean</span><span class="params">(String name,String json)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.json = json;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">--invoke</span><br><span class="line">RawBean bean = <span class="keyword">new</span> RawBean(<span class="string">"My bean"</span>, <span class="string">"&#123;\"attr\":false&#125;"</span>);</span><br><span class="line">String result = objectMapper.writeValueAsString(bean);</span><br><span class="line">System.out.println(<span class="string">"useJsonRawValue -&gt; "</span> + result);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">useJsonRawValue -&gt; &#123;<span class="string">"name"</span>:<span class="string">"My bean"</span>,<span class="string">"json"</span>:&#123;<span class="string">"attr"</span>:<span class="keyword">false</span>&#125;&#125;</span><br><span class="line">notUseJsonRawValue -&gt; &#123;<span class="string">"name"</span>:<span class="string">"My bean"</span>,<span class="string">"json"</span>:<span class="string">"&#123;\"attr\":false&#125;"</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonValue"><a href="#JsonValue" class="headerlink" title="@JsonValue"></a>@JsonValue</h5><p>表明Jackson在序列化该类实例时，只序列化字段的值或方法返回值。 一个类中最多使用一个@JsonValue 注解。否则会抛出 IllegalArgumentException 异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">--TypeEnumWithValue</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> TypeEnumWithValue &#123;</span><br><span class="line">    TYPE1(<span class="number">1</span>, <span class="string">"Type A"</span>),</span><br><span class="line">    TYPE2(<span class="number">2</span>, <span class="string">"Type 2"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@JsonValue</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">--invoke</span><br><span class="line">String enumAsString = objectMapper.writeValueAsString(TypeEnumWithValue.TYPE1);</span><br><span class="line">System.out.println(<span class="string">"useJsonValue -&gt; "</span> + enumAsString);</span><br><span class="line">--output</span><br><span class="line">useJsonValue -&gt; <span class="string">"Type A</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonRootName"><a href="#JsonRootName" class="headerlink" title="@JsonRootName"></a>@JsonRootName</h5><p>用于将序列化的结果再包装一层。使用时需要开启配置 <strong>SerializationFeature.WRAP_ROOT_VALUE</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">--UserWithRoot</span><br><span class="line">UserWithRoot &#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">&#125;</span><br><span class="line">--invoke</span><br><span class="line">UserWithRoot user = <span class="keyword">new</span> UserWithRoot(Integer.valueOf(<span class="number">1</span>),<span class="string">"Lewis"</span>);</span><br><span class="line">ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);</span><br><span class="line">String resultWithRoot = mapper.writeValueAsString(user);</span><br><span class="line">System.out.println(<span class="string">"resultWithRoot -&gt; "</span> + resultWithRoot);</span><br><span class="line">--output</span><br><span class="line">resultWithRoot -&gt; &#123;<span class="string">"user"</span>:&#123;<span class="string">"id"</span>:<span class="number">1</span>,<span class="string">"name"</span>:<span class="string">"Lewis"</span>&#125;&#125;</span><br><span class="line">resultWithoutRoot -&gt; &#123;<span class="string">"id"</span>:<span class="number">1</span>,<span class="string">"name"</span>:<span class="string">"Lewis"</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonSerialize"><a href="#JsonSerialize" class="headerlink" title="@JsonSerialize"></a>@JsonSerialize</h5><p>作用在类，字段，getter方法，表示自定义序列化。字段和getter方法上面的优先级比在类上的高。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">--CustomDateSerializer</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomDateSerializer</span> <span class="keyword">extends</span> <span class="title">StdSerializer</span>&lt;<span class="title">Date</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SimpleDateFormat formatter</span><br><span class="line">            = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd hh:mm:ss"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomDateSerializer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomDateSerializer</span><span class="params">(Class&lt;Date&gt; t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            Date value, JsonGenerator gen, SerializerProvider arg2)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IOException, JsonProcessingException </span>&#123;</span><br><span class="line">        gen.writeString(formatter.format(value));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">--EventWithSerializer</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventWithSerializer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JsonSerialize</span>(using = CustomDateSerializer<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">Date</span> <span class="title">eventDate</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">--invoke</span><br><span class="line">SimpleDateFormat formatter = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"dd-MM-yyyy hh:mm:ss"</span>);</span><br><span class="line">String toParse = <span class="string">"20-12-2014 02:30:00"</span>;</span><br><span class="line">Date date = formatter.parse(toParse);</span><br><span class="line">EventWithSerializer event = <span class="keyword">new</span> EventWithSerializer(<span class="string">"party"</span>, date);</span><br><span class="line">String result = objectMapper.writeValueAsString(event);</span><br><span class="line">System.out.println(<span class="string">"userJsonSerialize -&gt; "</span> + result);</span><br><span class="line"></span><br><span class="line">--outout</span><br><span class="line">userJsonSerialize -&gt; &#123;<span class="string">"name"</span>:<span class="string">"party"</span>,<span class="string">"eventDate"</span>:<span class="string">"2014-12-20 02:30:00"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h4 id="反序列化注解"><a href="#反序列化注解" class="headerlink" title="反序列化注解"></a>反序列化注解</h4><ul>
+<li><h5 id="JsonCreator"><a href="#JsonCreator" class="headerlink" title="@JsonCreator"></a>@JsonCreator</h5><p>用于指定反序列化时使用的构造函数。当进行反序列化时，带有 @JsonCreator 注解的构造函数被会调用，如果没有@JsonCreator注解，则默认调用无参构造函数。值得注意的是，在添加了有参构造函数的情况下，如果不使用此构造函数进行反序列化，Json 反序列化时需要一个无参构造函数，在这种情况下，需要手动添加无参构造器，否则会报错。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">--BeanWithCreator</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanWithCreator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JsonCreator</span>()</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BeanWithCreator</span><span class="params">(@JsonProperty(<span class="string">"id"</span>)</span> Integer id, @<span class="title">JsonProperty</span><span class="params">(<span class="string">"firstName"</span>)</span> String name) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">--invoke</span><br><span class="line">String json = <span class="string">"&#123;\"id\":1,\"firstName\":\"Lewis\"&#125;"</span>;</span><br><span class="line">BeanWithCreator myBean = objectMapper.readValue(json, BeanWithCreator<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JacksonInject"><a href="#JacksonInject" class="headerlink" title="@JacksonInject"></a>@JacksonInject</h5><p>用于指定反序列化时某个字段取注入的值，而不是从 Json 中读取。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">"\n@JacksonInject 用于指定反序列化时某个字段取注入的值，而不是从 Json 中读取。"</span>);</span><br><span class="line">InjectableValues inject = <span class="keyword">new</span> InjectableValues.Std().addValue(Integer<span class="class">.<span class="keyword">class</span>, <span class="title">Integer</span>.<span class="title">valueOf</span>(1))</span>;</span><br><span class="line">String json = <span class="string">"&#123;\"name\":\"Lewis\"&#125;"</span>;</span><br><span class="line">BeanWithInject bean = objectMapper.reader(inject)</span><br><span class="line">        .forType(BeanWithInject<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">        .<span class="title">readValue</span>(<span class="title">json</span>)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonAnySetter"><a href="#JsonAnySetter" class="headerlink" title="@JsonAnySetter"></a>@JsonAnySetter</h5><p>用于在反序列化时，处理一些未知的属性，如将 Json 中的属性加入到 Map 中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String json = <span class="string">"&#123;\"sellerName\":\"Lewis\",\"attr2\":\"val2\",\"attr1\":\"val1\"&#125;"</span>;</span><br><span class="line">ExtendableBean bean = <span class="keyword">new</span> ObjectMapper()</span><br><span class="line">          .readerFor(ExtendableBean<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">          .<span class="title">readValue</span>(<span class="title">json</span>)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonSetter"><a href="#JsonSetter" class="headerlink" title="@JsonSetter"></a>@JsonSetter</h5><p>标记一个方法为序列化时的 Setter 方法。当我们需要读取一些 Json 数据但目标实体类与该数据不完全匹配时，这个注解非常有用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">--MyBean</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBean</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JsonSetter</span>(<span class="string">"sellerName"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">--invoke</span><br><span class="line">String json = <span class="string">"&#123;\"id\":1,\"sellerName\":\"My bean\"&#125;"</span>;</span><br><span class="line">MyBean bean = objectMapper.readValue(json,MyBean<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonDeserialize"><a href="#JsonDeserialize" class="headerlink" title="@JsonDeserialize"></a>@JsonDeserialize</h5><p>使用自定义的反序列化器来进行反序列化，实现StdDeserializer或是其父类JsonSerializer</p>
+</li>
+<li><h5 id="JsonAlias"><a href="#JsonAlias" class="headerlink" title="@JsonAlias"></a>@JsonAlias</h5><p>用于在反序列化期间为属性指定一个或多个别名</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--AliasBean</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AliasBean</span> </span>&#123;</span><br><span class="line">    <span class="meta">@JsonAlias</span>(&#123;<span class="string">"fName"</span>, <span class="string">"f_name"</span>&#125;)</span><br><span class="line">    <span class="keyword">private</span> String firstName;</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line">&#125;</span><br><span class="line">--invoke</span><br><span class="line">String json = <span class="string">"&#123;\"f_name\": \"Lewis\", \"lastName\": \"Liu\"&#125;"</span>;</span><br><span class="line">AliasBean bean = objectMapper.readValue(json, AliasBean<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h4 id="Jackson-Property-Inclusion-Annotations"><a href="#Jackson-Property-Inclusion-Annotations" class="headerlink" title="Jackson Property Inclusion Annotations"></a>Jackson Property Inclusion Annotations</h4><ul>
+<li><h5 id="JsonIgnoreProperties"><a href="#JsonIgnoreProperties" class="headerlink" title="@JsonIgnoreProperties"></a>@JsonIgnoreProperties</h5><p>作用在类上，用于指定在序列化/反序列化时需要忽略的属性。可以将它看做是@JsonIgnore的批量操作，但它的功能比 @JsonIgnore 要强，比如一个类是代理类，我们无法将将 @JsonIgnore 标记在属性或方法上，此时便可用 @JsonIgnoreProperties 标注在类上，它还有一个重要的功能是作用在反序列化时解析字段时过滤一些未知的属性，否则通常情况下解析到我们定义的类不认识的属性便会抛出异常。</p>
+<p>可以注明是想要忽略的属性列表如@JsonIgnoreProperties({“name”})，</p>
+<p>也可以注明过滤掉未知的属性如@JsonIgnoreProperties(ignoreUnknown=true)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonIgnoreProperties</span>(<span class="string">"id"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanWithIgnore</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Integer id;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonIgnore"><a href="#JsonIgnore" class="headerlink" title="@JsonIgnore"></a>@JsonIgnore</h5><p>作用在属性上，用于指定在序列化/反序列化时需要忽略的属性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanWithIgnore</span> </span>&#123;</span><br><span class="line">	<span class="meta">@JsonIgnore</span></span><br><span class="line">    <span class="keyword">public</span> Integer id;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonIgnoreType"><a href="#JsonIgnoreType" class="headerlink" title="@JsonIgnoreType"></a>@JsonIgnoreType</h5><p>作用在类上，表示忽略该类的所有属性。</p>
+</li>
+<li><h5 id="JsonInclude"><a href="#JsonInclude" class="headerlink" title="@JsonInclude"></a>@JsonInclude</h5><p>作用于类或属性，用于忽略值为 Null, Empty, 默认值的属性。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h4 id="多态类型处理"><a href="#多态类型处理" class="headerlink" title="多态类型处理"></a>多态类型处理</h4></li>
+</ul>
+<ul>
+<li><h4 id="通用注解"><a href="#通用注解" class="headerlink" title="通用注解"></a>通用注解</h4><ul>
+<li><h5 id="JsonProperty"><a href="#JsonProperty" class="headerlink" title="@JsonProperty"></a>@JsonProperty</h5><p>作用在字段或方法上，用来对属性的序列化/反序列化,表明属性在 Json 中对应的属性名称。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--myBean</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBean</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="meta">@JsonProperty</span>(<span class="string">"sellerName"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">--invoke</span><br><span class="line">MyBean bean = <span class="keyword">new</span> MyBean(Integer.valueOf(<span class="number">1</span>),<span class="string">"Lewis"</span>);</span><br><span class="line">String result = objectMapper.writeValueAsString(bean);</span><br><span class="line">System.out.println(<span class="string">"useJsonProperty -&gt; "</span> + result);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">useJsonProperty -&gt; &#123;<span class="string">"id"</span>:<span class="number">1</span>,<span class="string">"sellerName"</span>:<span class="string">"Lewis"</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonFormat"><a href="#JsonFormat" class="headerlink" title="@JsonFormat"></a>@JsonFormat</h5><p>用于属性或方法，指定序列化日期/时间值时的格式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">--EventWithFormat</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventWithFormat</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="meta">@JsonFormat</span>(</span><br><span class="line">            shape = JsonFormat.Shape.STRING,</span><br><span class="line">            pattern = <span class="string">"yyyy-MM-dd hh:mm:ss"</span>)</span><br><span class="line">    <span class="keyword">public</span> Date eventDate;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EventWithFormat</span><span class="params">(String name,Date eventDate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.eventDate = eventDate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">--invoke</span><br><span class="line">SimpleDateFormat df = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"dd-MM-yyyy hh:mm:ss"</span>);</span><br><span class="line">df.setTimeZone(TimeZone.getTimeZone(<span class="string">"UTC"</span>));</span><br><span class="line">String toParse = <span class="string">"20-12-2014 02:30:00"</span>;</span><br><span class="line">Date date = df.parse(toParse);</span><br><span class="line">EventWithFormat event = <span class="keyword">new</span> EventWithFormat(<span class="string">"party"</span>, date);</span><br><span class="line">String result = <span class="keyword">new</span> ObjectMapper().writeValueAsString(event);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">useJsonFormat -&gt; &#123;<span class="string">"name"</span>:<span class="string">"party"</span>,<span class="string">"eventDate"</span>:<span class="string">"2014-12-20 02:30:00"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h5 id="JsonUnwrapped"><a href="#JsonUnwrapped" class="headerlink" title="@JsonUnwrapped"></a>@JsonUnwrapped</h5><p>用于属性，将有层级结构的对象在序列化的展开为平级。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">--UnwrappedUser</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnwrappedUser</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Integer id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JsonUnwrapped</span></span><br><span class="line">    <span class="keyword">public</span> Name name;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Name</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> String firstName;</span><br><span class="line">        <span class="keyword">public</span> String lastName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">   </span><br><span class="line">--invoke</span><br><span class="line">UnwrappedUser.Name name = <span class="keyword">new</span> UnwrappedUser.Name(<span class="string">"Lewis"</span>,<span class="string">"Liu"</span>);</span><br><span class="line">UnwrappedUser user = <span class="keyword">new</span> UnwrappedUser(Integer.valueOf(<span class="number">1</span>),name);</span><br><span class="line">String result = objectMapper.writeValueAsString(user);</span><br><span class="line">System.out.println(<span class="string">"useJsonUnwrapped -&gt; "</span> + result);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">useJsonUnwrapped -&gt; &#123;<span class="string">"id"</span>:<span class="number">1</span>,<span class="string">"firstName"</span>:<span class="string">"Lewis"</span>,<span class="string">"lastName"</span>:<span class="string">"Liu"</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonView"><a href="#JsonView" class="headerlink" title="@JsonView"></a>@JsonView</h5><p>视图模板，作用于方法和属性上，用来指定哪些属性可以被包含在JSON视图中，在前面我们知道已经有@JsonIgnore和@JsonIgnoreProperties可以排除过滤掉不需要序列化的属性，可是如果一个POJO中有上百个属性，比如订单类、商品详情类这种属性超多，而我们可能只需要概要简单信息即序列化时只想输出其中几个或10几个属性，此时使用@JsonIgnore和@JsonIgnoreProperties就显得非常繁琐，而使用@JsonView便会非常方便，只许在你想要输出的属性(或对应的getter)上添加@JsonView即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">--Views</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Views</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Public</span> </span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Internal</span> <span class="keyword">extends</span> <span class="title">Public</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">--Item</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;</span><br><span class="line">    <span class="meta">@JsonView</span>(Views.Public<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">    <span class="title">public</span> <span class="title">int</span> <span class="title">id</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@JsonView</span>(Views.Public<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">    <span class="title">public</span> <span class="title">String</span> <span class="title">itemName</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@JsonView</span>(Views.Internal<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">    <span class="title">public</span> <span class="title">String</span> <span class="title">ownerName</span></span>;</span><br><span class="line">&#125;</span><br><span class="line">--invoke</span><br><span class="line">Item item = <span class="keyword">new</span> Item(<span class="number">2</span>, <span class="string">"book"</span>, <span class="string">"Lewis"</span>);</span><br><span class="line">String result = <span class="keyword">new</span> ObjectMapper()</span><br><span class="line">         .writerWithView(Views.Public<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">         .<span class="title">writeValueAsString</span>(<span class="title">item</span>)</span>;</span><br><span class="line">System.out.println(<span class="string">"useJsonView -&gt; "</span> + result);</span><br><span class="line">--output</span><br><span class="line">useJsonView -&gt; &#123;<span class="string">"id"</span>:<span class="number">2</span>,<span class="string">"itemName"</span>:<span class="string">"book"</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="JsonFilter"><a href="#JsonFilter" class="headerlink" title="@JsonFilter"></a>@JsonFilter</h5><p>指定序列化期间要使用的筛选器，只保留通过筛选的属性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">--BeanWithFilter</span><br><span class="line"><span class="meta">@JsonFilter</span>(<span class="string">"filter"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanWithFilter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BeanWithFilter</span><span class="params">(<span class="keyword">int</span> id,String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">--invoke</span><br><span class="line">FilterProvider filter = <span class="keyword">new</span> SimpleFilterProvider()</span><br><span class="line">	.addFilter(<span class="string">"filter"</span>,SimpleBeanPropertyFilter.filterOutAllExcept(<span class="string">"id"</span>));</span><br><span class="line">BeanWithFilter bean = <span class="keyword">new</span> BeanWithFilter(<span class="number">1</span>, <span class="string">"MyBean"</span>);</span><br><span class="line">String result = objectMapper</span><br><span class="line">          .writer(filter)</span><br><span class="line">System.out.println(<span class="string">"useJsonFilter -&gt; "</span> + result);</span><br><span class="line"></span><br><span class="line">--ouput</span><br><span class="line">useJsonFilter -&gt; &#123;<span class="string">"id"</span>:<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/" data-id="ckb0n0nub000144kk2krn4nyi" class="article-share-link" data-share="baidu" data-title="Java Jackson Json 处理_1">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java 中 == 和 equals() 的区别
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">finalize 方法与对象复活</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/06/04/Java Jackson Json 处理_1/" data-title="Java Jackson Json 处理_1" data-url="http://yoursite.com/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/">Java Jackson Json 处理_2</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/">Java 装箱拆箱</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/">Java编程中为了性能尽量要做到的一些地方</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/">Java 中 == 和 equals() 的区别</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/">Java Jackson Json 处理_1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://juejin.im/post/5db5c1016fb9a0207a6ddd37" target="_blank">掘金</a>
+          </li>
+        
+          <li>
+            <a href="https://github.com/cdliux" target="_blank">github</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="totop"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

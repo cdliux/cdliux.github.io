@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用 Optional 类避免 NPE | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="空指针异常在日常开发中大家应该都遇到过，一旦没处理好，程序直接将其抛出将非常影响体验。 在阿里巴巴的 Java 开发手册中针对 NPE 给出了如下的建议：  【推荐】防止 NPE，是程序员的基本修养，注意 NPE 产生的场景：1） 返回类型为基本数据类型，return 包装数据类型的对象时，自动拆箱有可能产生 NPE。反例：public int f() { return Integer 对象}，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Optional 类避免 NPE">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="空指针异常在日常开发中大家应该都遇到过，一旦没处理好，程序直接将其抛出将非常影响体验。 在阿里巴巴的 Java 开发手册中针对 NPE 给出了如下的建议：  【推荐】防止 NPE，是程序员的基本修养，注意 NPE 产生的场景：1） 返回类型为基本数据类型，return 包装数据类型的对象时，自动拆箱有可能产生 NPE。反例：public int f() { return Integer 对象}，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/5/18/17228412f16bddcf?w=1205&h=229&f=png&s=24659">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/5/18/1722840b8aee8aa9?w=1187&h=106&f=png&s=4192">
+<meta property="article:published_time" content="2020-06-04T08:54:35.000Z">
+<meta property="article:modified_time" content="2020-06-04T10:18:45.026Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2020/5/18/17228412f16bddcf?w=1205&h=229&f=png&s=24659">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="yoursite.com">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-使用-Optional-类避免-NPE" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/" class="article-date">
+  <time datetime="2020-06-04T08:54:35.000Z" itemprop="datePublished">2020-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用 Optional 类避免 NPE
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>空指针异常在日常开发中大家应该都遇到过，一旦没处理好，程序直接将其抛出将非常影响体验。</p>
+<p>在阿里巴巴的 Java 开发手册中针对 NPE 给出了如下的建议：</p>
+<blockquote>
+<p>【推荐】防止 NPE，是程序员的基本修养，注意 NPE 产生的场景：<br>1） 返回类型为基本数据类型，return 包装数据类型的对象时，自动拆箱有可能产生 NPE。<br>反例：public int f() { return Integer 对象}， 如果为 null，自动解箱抛 NPE。<br>2） 数据库的查询结果可能为 null。<br>3） 集合里的元素即使 isNotEmpty，取出的数据元素也可能为 null。<br>4） 远程调用返回对象时，一律要求进行空指针判断，防止 NPE。<br>5） 对于 Session 中获取的数据，建议进行 NPE 检查，避免空指针。<br>6） 级联调用 obj.getA().getB().getC()；一连串调用，易产生 NPE。<br>正例：使用 JDK8 的 Optional 类来防止 NPE 问题。</p>
+</blockquote>
+<p>目前我们使用的也是 JDK8，那本文就来学习下这个 Java8 中的 Optional 类，了解其基本的使用方式，并尝试改良项目中的代码。</p>
+<a id="more"></a>
+
+<h4 id="创建一个-Optional-实例"><a href="#创建一个-Optional-实例" class="headerlink" title="创建一个 Optional 实例"></a>创建一个 Optional 实例</h4><p>Optional 类提供了 3 个静态方法来创建一个 Optional 实例</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/5/18/17228412f16bddcf?w=1205&h=229&f=png&s=24659" alt="static method.png"></p>
+<ul>
+<li><h5 id="empty"><a href="#empty" class="headerlink" title="empty()"></a>empty()</h5><p>直接返回一个空的 Optional</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ptional&lt;String&gt; emptyOpt = Optional.empty();</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="of"><a href="#of" class="headerlink" title="of()"></a>of()</h5><p>使用一个非空对象创建一个 Optional，如果传入的值是 Null, 会抛出 NPE</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; notnullOpt = Optional.of(<span class="string">"String"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="ofNullable"><a href="#ofNullable" class="headerlink" title="ofNullable"></a>ofNullable</h5><p>接受一个可以为 Null 的值创建 Optional</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; nullableOpt = Optional.ofNullable(<span class="string">"String"</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h4 id="isPresent-与-get"><a href="#isPresent-与-get" class="headerlink" title="isPresent() 与 get()"></a>isPresent() 与 get()</h4><p><img src="https://user-gold-cdn.xitu.io/2020/5/18/1722840b8aee8aa9?w=1187&h=106&f=png&s=4192" alt="get和isPresent.png"></p>
+<ul>
+<li><h5 id="isPresent"><a href="#isPresent" class="headerlink" title="isPresent()"></a>isPresent()</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPresent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> value != <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过 isPresent() 的实现可以它和 if(value != null) 并没有区别，如果只是单纯的想判断一个对象是否为 Null,不推荐使用这种方式，因为还需要新建一个 Optional 对象，这是无意义的。</p>
+</li>
+<li><h5 id="get"><a href="#get" class="headerlink" title="get()"></a>get()</h5><p>get() 是从一个 Optional 对象中获取值最直接最简单的方式，但是需要注意的是，如果在使用get() 时没有使用 isPresent() 进行 Null 检查，假设 Optional 为空，会抛出 NoSuchElementException。</p>
+</li>
+</ul>
+<p>所以，在实际使用 Optional 类的时候，是需要避免使用这个两个方法的，当代码中出现了这种写法时，应当思考下是否使用传统的方式即可，不要为了使用特性而强行使用。</p>
+<h4 id="常用方法介绍"><a href="#常用方法介绍" class="headerlink" title="常用方法介绍"></a>常用方法介绍</h4><p>​    Optional 类常用方法使用频率排行</p>
+<blockquote>
+<p>1.public</U> Optional</U> map(Function&lt;? super T, ? extends U&gt; mapper)<br>2.public T orElse(T other)<br>3.public T orElseGet(Supplier&lt;? extends T&gt; other)<br>4.public void ifPresent(Consumer&lt;? super T&gt; consumer)<br>5.public Optional<T> filter(Predicate&lt;? super T&gt; predicate)<br>6.public</U> Optional</U> flatMap(Function&lt;? super T, Optional</U>&gt; mapper)<br>7.public <X extends Throwable> T orElseThrow(Supplier&lt;? extends X&gt; exceptionSupplier) throws X  </p>
+</blockquote>
+<ul>
+<li><h5 id="orElse"><a href="#orElse" class="headerlink" title="orElse()"></a>orElse()</h5><p>当 Optional 有值时直接返回值，为 Null 时返回指定的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Seller seller = <span class="keyword">new</span> Seller(<span class="string">"A001"</span>, <span class="string">"Lewis"</span>);</span><br><span class="line">Optional&lt;Seller&gt; sellerNotNullOpt = Optional.of(seller);</span><br><span class="line">Optional&lt;Seller&gt; sellerNullOpt = Optional.empty();</span><br><span class="line">Seller notNullSeller = sellerNotNullOpt.orElse(<span class="keyword">new</span> Seller(<span class="string">"A002"</span>, <span class="string">"LewisDefault"</span>));</span><br><span class="line">Seller nullSeller = sellerNullOpt.orElse(<span class="keyword">new</span> Seller(<span class="string">"A002"</span>, System.out.println(<span class="string">"orElse() 有值 -&gt; "</span> + notNullSeller.getSellerId());</span><br><span class="line">System.out.println(<span class="string">"orElse() 无值 -&gt; "</span> + nullSeller.getSellerId());</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">orElse() 有值 -&gt; A001</span><br><span class="line">orElse() 无值 -&gt; A002</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="orElseGet"><a href="#orElseGet" class="headerlink" title="orElseGet()"></a>orElseGet()</h5><p>当 Optional 有值时直接返回值，为 Null 时调用函数产生结果并返回。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Seller notNullSeller = sellerNotNullOpt.orElseGet(() -&gt; <span class="keyword">new</span> Seller(<span class="string">"A002"</span>, <span class="string">"LewisDefault"</span>));</span><br><span class="line">Seller nullSeller = sellerNullOpt.orElseGet(() -&gt; <span class="keyword">new</span> Seller(<span class="string">"A002"</span>, <span class="string">"LewisDefault"</span>));</span><br><span class="line">System.out.println(<span class="string">"orElseGet() 有值 -&gt; "</span> + notNullSeller.getSellerId());</span><br><span class="line">System.out.println(<span class="string">"orElseGet() 无值 -&gt; "</span> + nullSeller.getSellerId());</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">orElseGet() 有值 -&gt; A001</span><br><span class="line">orElseGet() 无值 -&gt; A002</span><br></pre></td></tr></table></figure>
+
+<p>orElseGet() 与 orElse() 的区别</p>
+<p>orElse() 方法不管 Optional 是否为 Null 都会调用生成默认值的方法，而 orElseGet() 只会在 Optional 为空的时候调用。</p>
+</li>
+<li><h5 id="orElseThrow"><a href="#orElseThrow" class="headerlink" title="orElseThrow()"></a>orElseThrow()</h5><p>当 Optional 有值时直接返回值，无值抛出指定的异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Seller notNullSeller = sellerNotNullOpt.orElseThrow(() -&gt; <span class="keyword">new</span> NoSuchElementException(<span class="string">"No value present."</span>));</span><br><span class="line">System.out.println(<span class="string">"orElseThrow() 有值 -&gt; "</span> + notNullSeller.getSellerId());</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	seller nullSeller = sellerNullOpt.orElseThrow(() -&gt; <span class="keyword">new</span> NoSuchElementException(<span class="string">"No value present."</span>));</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchElementException exception) &#123;</span><br><span class="line">	System.out.println(<span class="string">"orElseThrow() 无值 -&gt; "</span> + exception.getMessage());</span><br><span class="line">&#125;</span><br><span class="line">--output</span><br><span class="line">orElseThrow() 有值 -&gt; A001</span><br><span class="line">orElseThrow() 无值 -&gt; No value present.</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="ifPresent"><a href="#ifPresent" class="headerlink" title="ifPresent()"></a>ifPresent()</h5><p>存在值则调用指定的函数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sellerNotNullOpt.ifPresent(s -&gt; System.out.println(<span class="string">"存在值，进行方法调用 -&gt;"</span> + seller.getSellerId()));</span><br><span class="line">sellerNullOpt.ifPresent(s -&gt; System.out.println(<span class="string">"不存在值，不进行方法调用"</span>));</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">存在值，进行方法调用 -&gt;A001</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><h5 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h5><p>判断值是否存在，存在则用该值包装一个新的 Optional 返回，值不存在则返回一个空 Optional。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Seller seller = <span class="keyword">new</span> Seller(<span class="string">"A001"</span>, <span class="string">"Lewis"</span>, <span class="string">"address1"</span>);</span><br><span class="line">Optional&lt;Seller&gt; sellerNotNullOpt = Optional.of(seller);</span><br><span class="line">Optional&lt;Seller&gt; sellerNullOpt = Optional.empty();</span><br><span class="line">String notNullAddress = sellerNotNullOpt</span><br><span class="line">          .map(Seller::getSellerAddress)</span><br><span class="line">          .map(Address::getAddress1)</span><br><span class="line">          .orElse(<span class="string">"No address1."</span>);</span><br><span class="line">String nullAddress = sellerNullOpt</span><br><span class="line">           .map(Seller::getSellerAddress)</span><br><span class="line">           .map(Address::getAddress1)</span><br><span class="line">           .orElse(<span class="string">"No address1."</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"notNullAddress -&gt; "</span> + notNullAddress);</span><br><span class="line">System.out.println(<span class="string">"nullAddress -&gt; "</span> + nullAddress);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">notNullAddress -&gt; address1</span><br><span class="line">nullAddress -&gt; No address1.</span><br></pre></td></tr></table></figure>
+
+<p>使用 map() 可以有效的处理级联判断，比如，用传统的方式，上方获取 Address1 的代码会写成这样。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (seller != <span class="keyword">null</span>) &#123;</span><br><span class="line">	Address address = seller.getSellerAddress();</span><br><span class="line">	<span class="keyword">if</span> (address != <span class="keyword">null</span>) &#123;</span><br><span class="line">		String address1 = address.getAddress1();</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"No address1."</span>;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"No address1."</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><h5 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap()"></a>flatMap()</h5></li>
+</ul>
+<ul>
+<li><h5 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h5></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/" data-id="ckb0n0nur000744kkgapnbz97" class="article-share-link" data-share="baidu" data-title="使用 Optional 类避免 NPE">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          finalize 方法与对象复活
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/04/Java-Object-%E7%B1%BB%E6%96%B9%E6%B3%95%E6%A6%82%E8%A7%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java Object 类方法概览</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/06/04/使用-Optional-类避免-NPE/" data-title="使用 Optional 类避免 NPE" data-url="http://yoursite.com/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/">Java Jackson Json 处理_2</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/">Java 装箱拆箱</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/">Java编程中为了性能尽量要做到的一些地方</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/">Java 中 == 和 equals() 的区别</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/">Java Jackson Json 处理_1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://juejin.im/post/5db5c1016fb9a0207a6ddd37" target="_blank">掘金</a>
+          </li>
+        
+          <li>
+            <a href="https://github.com/cdliux" target="_blank">github</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="totop"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java 装箱拆箱 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="什么是装箱和拆箱在 Java 中，当基本数据类型和其对应的包装类型进行运算的时候，编译器会帮我们自动进行转换，这就是装箱和拆箱。简单来说，从基本类型转为包装类型即为装箱，从包装类型转为基本类型即为拆箱。 Java 中基本类型和其对应的包装类型。    基本类型 包装类型    int Integer   float Float   double Double   byte Byte   char">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 装箱拆箱">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="什么是装箱和拆箱在 Java 中，当基本数据类型和其对应的包装类型进行运算的时候，编译器会帮我们自动进行转换，这就是装箱和拆箱。简单来说，从基本类型转为包装类型即为装箱，从包装类型转为基本类型即为拆箱。 Java 中基本类型和其对应的包装类型。    基本类型 包装类型    int Integer   float Float   double Double   byte Byte   char">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19433926-70d01194d08d8103.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-06-04T09:03:42.000Z">
+<meta property="article:modified_time" content="2020-06-04T10:18:45.025Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/19433926-70d01194d08d8103.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="yoursite.com">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-Java-装箱拆箱" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" class="article-date">
+  <time datetime="2020-06-04T09:03:42.000Z" itemprop="datePublished">2020-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java 装箱拆箱
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="什么是装箱和拆箱"><a href="#什么是装箱和拆箱" class="headerlink" title="什么是装箱和拆箱"></a>什么是装箱和拆箱</h4><p>在 Java 中，当基本数据类型和其对应的包装类型进行运算的时候，编译器会帮我们自动进行转换，这就是装箱和拆箱。简单来说，从基本类型转为包装类型即为装箱，从包装类型转为基本类型即为拆箱。</p>
+<p>Java 中基本类型和其对应的包装类型。</p>
+<table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th>包装类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<p>当表格中左边列出的基本类型与它们的包装类有如下几种情况时，编译器会<strong>自动</strong>帮我们进行装箱或拆箱.</p>
+<ul>
+<li><p>进行 = 赋值操作（装箱或拆箱）</p>
+</li>
+<li><p>进行+，-，*，/混合运算 （拆箱）</p>
+</li>
+<li><p>进行&gt;,&lt;,==比较运算（拆箱）</p>
+</li>
+<li><p>调用equals进行比较（装箱）</p>
+</li>
+<li><p>ArrayList,HashMap等集合类 添加基础类型数据时（装箱）</p>
+<a id="more"></a>
+
+</li>
+</ul>
+<h4 id="装箱和拆箱的实现"><a href="#装箱和拆箱的实现" class="headerlink" title="装箱和拆箱的实现"></a>装箱和拆箱的实现</h4><p>下方代码是以 Integer 类的一个简单装箱拆箱的例子。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span>  <span class="title">testInteger</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Integer i1 = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span> i2 = i1;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>根据上文装箱拆箱定义可知给 Integer 类型赋 int 类型值的时候会触发装箱操作，而给 int 类型变量赋值 Integer 类型数据的时候则会触发拆箱操作。下图是上方两行代码的字节码。<br><img src="https://upload-images.jianshu.io/upload_images/19433926-70d01194d08d8103.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="boxAndUnbox.png"></p>
+<p>从字节码中可以看出，装箱时其实是调用了 Integer 类的静态方法 valueOf(), 拆箱时是调用了intValue()方法。类似的，Long，Double 等包装类型也是采用相同的方式进行处理。</p>
+<p>综上所述，在进行装箱操作的时候，是调用了包装类型的 valueOf() 方法。在进行拆箱的时候，是调用了对应包装的类型的 xxxValue() 方法，xxx是对应的基础类型，如 intValue(), doubleValue()。</p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><h5 id="1-Integer-类型"><a href="#1-Integer-类型" class="headerlink" title="1.Integer 类型"></a>1.Integer 类型</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Integer i1 = <span class="number">127</span>;</span><br><span class="line">Integer i2 = <span class="number">127</span>;</span><br><span class="line">Integer i3 = <span class="number">128</span>;</span><br><span class="line">Integer i4 = <span class="number">128</span>;</span><br><span class="line">​</span><br><span class="line">System.out.println(<span class="string">"i1 == i2 =&gt; "</span> + (i1 == i2));</span><br><span class="line">System.out.println(<span class="string">"i3 == i4 =&gt; "</span> + (i3 == i4));</span><br><span class="line">​</span><br><span class="line">--output</span><br><span class="line">i1 == i2 =&gt; <span class="keyword">true</span></span><br><span class="line">i3 == i4 =&gt; <span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+
+<p>根据上文的描述，装箱时是调用 Integer.valueOf(int) 方法生成一个新对象，按理说两个比较的结果都应该是 false，但是为什么 i1 和 i2 的比较结果是相同的呢。既然是调用的 valueOf() 方法，那就需要看下这个方法的实现了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">  <span class="keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到通过 valueOf(int) 方法初始化一个 Integer 对象的时候，有一个从 IntegerCache 直接取值的操作，IntegerCache 的实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">IntegerCache</span> </span>&#123;</span><br><span class="line"> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> low = -<span class="number">128</span>;</span><br><span class="line"> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> high;</span><br><span class="line"> <span class="keyword">static</span> <span class="keyword">final</span> Integer cache[];</span><br><span class="line">​</span><br><span class="line"> <span class="keyword">static</span> &#123;</span><br><span class="line"> <span class="comment">// high value may be configured by property</span></span><br><span class="line"> <span class="keyword">int</span> h = <span class="number">127</span>;</span><br><span class="line"> String integerCacheHighPropValue =</span><br><span class="line"> sun.misc.VM.getSavedProperty(<span class="string">"java.lang.Integer.IntegerCache.high"</span>);</span><br><span class="line"> <span class="keyword">if</span> (integerCacheHighPropValue != <span class="keyword">null</span>) &#123;</span><br><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line"> <span class="keyword">int</span> i = parseInt(integerCacheHighPropValue);</span><br><span class="line"> i = Math.max(i, <span class="number">127</span>);</span><br><span class="line"> <span class="comment">// Maximum array size is Integer.MAX_VALUE</span></span><br><span class="line"> h = Math.min(i, Integer.MAX_VALUE - (-low) -<span class="number">1</span>);</span><br><span class="line"> &#125; <span class="keyword">catch</span>( NumberFormatException nfe) &#123;</span><br><span class="line"> <span class="comment">// If the property cannot be parsed into an int, ignore it.</span></span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> high = h;</span><br><span class="line">​</span><br><span class="line"> cache = <span class="keyword">new</span> Integer[(high - low) + <span class="number">1</span>];</span><br><span class="line"> <span class="keyword">int</span> j = low;</span><br><span class="line"> <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; cache.length; k++)</span><br><span class="line"> cache[k] = <span class="keyword">new</span> Integer(j++);</span><br><span class="line">​</span><br><span class="line"> <span class="comment">// range [-128, 127] must be interned (JLS7 5.1.7)</span></span><br><span class="line"> <span class="keyword">assert</span> IntegerCache.high &gt;= <span class="number">127</span>;</span><br><span class="line"> &#125;</span><br><span class="line">​</span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="title">IntegerCache</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过上面两端实现代码可以发现，当一个 int 型的数字在 [-128,127] 这个区间时，会直接从 IntegerCache 中取值并返回，超过这个区间时才会重新创建新对象。这也就是为什么两个 赋值为127 的两个 Integer 比较的结果是 true，而赋值为 128 的两个 Integer 比较的结果是 false。但这个结果并不绝对，因为 IntegerCache 的 high 是可以配置的，这也就意味着你可以手动改变这个缓存的范围，将 128 加入缓存中。</p>
+<h5 id="2-Double-类型"><a href="#2-Double-类型" class="headerlink" title="2.Double 类型"></a>2.Double 类型</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Double d1 = <span class="number">127.0</span>;</span><br><span class="line">Double d2 = <span class="number">127.0</span>;</span><br><span class="line">Double d3 = <span class="number">128.0</span>;</span><br><span class="line">Double d4 = <span class="number">128.0</span>;</span><br><span class="line">​</span><br><span class="line">ystem.out.println(<span class="string">"d1 == d2 =&gt; "</span> + (d1 == d2));</span><br><span class="line">System.out.println(<span class="string">"d3 == d4 =&gt; "</span> + (d3 == d4));</span><br><span class="line">​</span><br><span class="line">--output</span><br><span class="line">d1 == d2 =&gt; <span class="keyword">false</span></span><br><span class="line">d3 == d4 =&gt; <span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，double 类型数据在进行装箱的时候似乎没有从缓存直接取值的操作，都是直接创建新对象，这是因为在一个有限的区间内，整型数的个数是有限的，但是浮点数无法用一个有限的几个表示，所以是直接创建新对象。</p>
+<p>Double 和 Float 的 valueOf() 方法代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Double </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Double <span class="title">valueOf</span><span class="params">(<span class="keyword">double</span> d)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> Double(d);</span><br><span class="line"> &#125;</span><br><span class="line">​</span><br><span class="line"><span class="comment">//Float</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Float <span class="title">valueOf</span><span class="params">(<span class="keyword">float</span> f)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> Float(f);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-Boolean-类型"><a href="#3-Boolean-类型" class="headerlink" title="3.Boolean 类型"></a>3.Boolean 类型</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Boolean b1 = <span class="keyword">false</span>;</span><br><span class="line">Boolean b2 = <span class="keyword">false</span>;</span><br><span class="line">Boolean b3 = <span class="keyword">true</span>;</span><br><span class="line">Boolean b4 = <span class="keyword">true</span>;</span><br><span class="line">​</span><br><span class="line">System.out.println(<span class="string">"b1 == b2 =&gt; "</span> + (b1 == b2));</span><br><span class="line">System.out.println(<span class="string">"b3 == b4 =&gt; "</span> + (b3 == b4));</span><br><span class="line">​</span><br><span class="line">--output</span><br><span class="line">b1 == b2 =&gt; <span class="keyword">true</span></span><br><span class="line">b3 == b4 =&gt; <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+
+<p>这是因为 Boolean.valueOf() 直接返回了两个静态成员变量 Boolean.TRUE 和 Boolean.FALSE，所以比较为 true.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">valueOf</span><span class="params">(<span class="keyword">boolean</span> b)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> (b ? TRUE : FALSE);</span><br><span class="line"> &#125;</span><br><span class="line">​</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean TRUE = <span class="keyword">new</span> Boolean(<span class="keyword">true</span>);</span><br><span class="line">​</span><br><span class="line">​</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean FALSE = <span class="keyword">new</span> Boolean(<span class="keyword">false</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-综合测试"><a href="#4-综合测试" class="headerlink" title="4.综合测试"></a>4.综合测试</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="number">1</span>;</span><br><span class="line">Integer b = <span class="number">2</span>;</span><br><span class="line">Integer c = <span class="number">3</span>;</span><br><span class="line">Integer d = <span class="number">3</span>;</span><br><span class="line">Integer e = <span class="number">321</span>;</span><br><span class="line">Integer f = <span class="number">321</span>;</span><br><span class="line">Long g = <span class="number">3L</span>;</span><br><span class="line">Long h = <span class="number">2L</span>;</span><br><span class="line">​</span><br><span class="line">System.out.println(<span class="string">"c == d =&gt; "</span> + (c == d));</span><br><span class="line">System.out.println(<span class="string">"e == f =&gt; "</span> + (e == f));</span><br><span class="line">System.out.println(<span class="string">"c == (a + b) =&gt; "</span> + (c == (a + b)));</span><br><span class="line">System.out.println(<span class="string">"c.equals(a + b) =&gt; "</span> + (c.equals(a + b)));</span><br><span class="line">System.out.println(<span class="string">"g == (a + b) =&gt; "</span> + (g == (a + b)));</span><br><span class="line">System.out.println(<span class="string">"g.equals(a + b) =&gt; "</span> + g.equals(a + b));</span><br><span class="line">System.out.println(<span class="string">"g.equals(a + h) =&gt; "</span> + g.equals(a + h));</span><br><span class="line">​</span><br><span class="line">--output</span><br><span class="line">c == d =&gt; <span class="keyword">true</span></span><br><span class="line">e == f =&gt; <span class="keyword">false</span></span><br><span class="line">c == (a + b) =&gt; <span class="keyword">true</span></span><br><span class="line">c.equals(a + b) =&gt; <span class="keyword">true</span></span><br><span class="line">g == (a + b) =&gt; <span class="keyword">true</span></span><br><span class="line">g.equals(a + b) =&gt; <span class="keyword">false</span></span><br><span class="line">g.equals(a + h) =&gt; <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>c == d 返回 true，因为是直接从 IntegerCache 取值返回。</p>
+</li>
+<li><p>e == f 返回 false，因为超出 IntegerCache 默认缓存返回，是比较两个新对象地址，所以是 false。</p>
+</li>
+<li><p>c == (a + b) 返回 ture，因为执行了算数运算，会先进行拆箱，然后直接比较值。</p>
+</li>
+<li><p>c.equals(a + b) 返回 true,，因为执行了算数运算，会先进行拆箱，因为是调用 equals，会再进行装箱， Integer.equals() 会调用 intValue() 比较值，所以结果是 true。</p>
+</li>
+<li><p>g == (a + b) 返回 true，拆箱后比较值是否相等。</p>
+</li>
+<li><p>g.equals(a + b) 返回 false，因为先拆箱后装箱为 Integer，而 g 是 Long 类型， 其 equals(obj) 接收到的参数不是 Long 类型时，会返回 false。</p>
+</li>
+<li><p>g.equals(a + h) 返回 true，因为此处触发类型晋升，在装箱时会调用 Long.valueOf()，所以比较结果相同。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" data-id="ckb0n0nud000444kkbenuf71d" class="article-share-link" data-share="baidu" data-title="Java 装箱拆箱">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java Jackson Json 处理_2
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java编程中为了性能尽量要做到的一些地方</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/06/04/Java-装箱拆箱/" data-title="Java 装箱拆箱" data-url="http://yoursite.com/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/">Java Jackson Json 处理_2</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/">Java 装箱拆箱</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/">Java编程中为了性能尽量要做到的一些地方</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/">Java 中 == 和 equals() 的区别</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/">Java Jackson Json 处理_1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://juejin.im/post/5db5c1016fb9a0207a6ddd37" target="_blank">掘金</a>
+          </li>
+        
+          <li>
+            <a href="https://github.com/cdliux" target="_blank">github</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="totop"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
