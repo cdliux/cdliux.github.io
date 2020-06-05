@@ -4,17 +4,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Java Jackson Json 处理_2 | Lewis&#39;s blog</title>
+  <title>JVM 参数学习 | Lewis&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="高级用法 泛型反序列化在 Jackson 中，如果处理泛型类型的反序列化 ,可以调用 constructXXXType 系列方法构造需要的类型来进行，也可以构造 TypeReference 来反序列化。在我们老版本的 OatuhClient 中可以看到这样的使用方式。 123CollectionType javaType &#x3D; objectMapper.getTypeFactory().constr">
+  <meta name="description" content="JVM 参数学习常用参数   参数名 解释    -Xms 初始堆大小   -Xmx 堆最大值   -Xmn 堆年轻代大小   -Xss 线程栈大小   -XX:MaxMetaspaceSize 修改元空间大小   -XX:MaxDirectMemorySize 修改直接内存大小   -XX:NewRatio 修改新生代与老年代比例，默认比例为2   -XX:SurvivorRatio 改eden">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java Jackson Json 处理_2">
-<meta property="og:url" content="http://yoursite.com/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/index.html">
+<meta property="og:title" content="JVM 参数学习">
+<meta property="og:url" content="http://yoursite.com/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Lewis&#39;s blog">
-<meta property="og:description" content="高级用法 泛型反序列化在 Jackson 中，如果处理泛型类型的反序列化 ,可以调用 constructXXXType 系列方法构造需要的类型来进行，也可以构造 TypeReference 来反序列化。在我们老版本的 OatuhClient 中可以看到这样的使用方式。 123CollectionType javaType &#x3D; objectMapper.getTypeFactory().constr">
+<meta property="og:description" content="JVM 参数学习常用参数   参数名 解释    -Xms 初始堆大小   -Xmx 堆最大值   -Xmn 堆年轻代大小   -Xss 线程栈大小   -XX:MaxMetaspaceSize 修改元空间大小   -XX:MaxDirectMemorySize 修改直接内存大小   -XX:NewRatio 修改新生代与老年代比例，默认比例为2   -XX:SurvivorRatio 改eden">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-06-04T10:10:07.000Z">
-<meta property="article:modified_time" content="2020-06-04T11:03:38.175Z">
+<meta property="article:published_time" content="2020-06-05T07:38:41.000Z">
+<meta property="article:modified_time" content="2020-06-05T07:39:27.115Z">
 <meta property="article:author" content="Lewis Liu">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -71,10 +71,10 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-Java-Jackson-Json-处理-2" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-JVM-参数学习" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/" class="article-date">
-  <time datetime="2020-06-04T10:10:07.000Z" itemprop="datePublished">2020-06-04</time>
+    <a href="/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2020-06-05T07:38:41.000Z" itemprop="datePublished">2020-06-05</time>
 </a>
     
   </div>
@@ -85,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Java Jackson Json 处理_2
+      JVM 参数学习
     </h1>
   
 
@@ -93,37 +93,105 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h4><ul>
-<li><h5 id="泛型反序列化"><a href="#泛型反序列化" class="headerlink" title="泛型反序列化"></a>泛型反序列化</h5><p>在 Jackson 中，如果处理泛型类型的反序列化 ,可以调用 constructXXXType 系列方法构造需要的类型来进行，也可以构造 TypeReference 来反序列化。在我们老版本的 OatuhClient 中可以看到这样的使用方式。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CollectionType javaType = objectMapper.getTypeFactory().constructCollectionType(List<span class="class">.<span class="keyword">class</span>, <span class="title">MyBean</span>.<span class="title">class</span>)</span>;</span><br><span class="line">List&lt;MyBean&gt; myList = objectMapper.readValue(json, <span class="keyword">new</span> TypeReference&lt;List&lt;MyBean&gt;&gt;() &#123;&#125;);</span><br><span class="line">List&lt;MyBean&gt; myList2 = objectMapper.readValue(json, javaType);</span><br></pre></td></tr></table></figure>
-
-<p>Map 的处理方法类似：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MapType javaType = objectMapper</span><br><span class="line">           .getTypeFactory()</span><br><span class="line">           .constructMapType(HashMap<span class="class">.<span class="keyword">class</span>,<span class="title">String</span>.<span class="title">class</span> ,<span class="title">MyBean</span>.<span class="title">class</span>)</span>;</span><br><span class="line">HashMap&lt;String,MyBean&gt; beanMap = objectMapper.readValue(json,javaType);</span><br><span class="line">HashMap&lt;String,MyBean&gt; beanMap2 = objectMapper.readValue(json, <span class="keyword">new</span> TypeReference&lt;HashMap&lt;String, MyBean&gt;&gt;() &#123;&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>​    </p>
-<a id="more"></a></li>
-<li><h5 id="属性可视化"><a href="#属性可视化" class="headerlink" title="属性可视化"></a>属性可视化</h5><p>属性可视化是指在使用 Jackson 时，不是所有属性都可能被序列化/反序列化，和属性及其 Getter/Setter 方法的可见性有关，默认的属性可视化的规则如下：</p>
-<ul>
-<li>若该属性修饰符是 public，该属性可序列化和反序列化。</li>
-<li>若属性的修饰符不是 public，但是它的 getter 方法和 setter 方法是 public，该属性可序列化和反序列化。因为 getter 方法用于序列化， 而 setter 方法用于反序列化。</li>
-<li>若属性只有 public 的 setter 方法，而无 public 的 getter 方 法，该属性只能用于反序列化。</li>
-</ul>
-<p>若想更改默认的属性可视化的规则，需要调用 ObjectMapper 的方法 setVisibility。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);</span><br></pre></td></tr></table></figure>
-
-<p>PropertyAccessor 用来指定操作的对象，Visibility 用来限定可见性。</p>
+        <h2 id="JVM-参数学习"><a href="#JVM-参数学习" class="headerlink" title="JVM 参数学习"></a>JVM 参数学习</h2><h3 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h3><table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-Xms</td>
+<td>初始堆大小</td>
+</tr>
+<tr>
+<td>-Xmx</td>
+<td>堆最大值</td>
+</tr>
+<tr>
+<td>-Xmn</td>
+<td>堆年轻代大小</td>
+</tr>
+<tr>
+<td>-Xss</td>
+<td>线程栈大小</td>
+</tr>
+<tr>
+<td>-XX:MaxMetaspaceSize</td>
+<td>修改元空间大小</td>
+</tr>
+<tr>
+<td>-XX:MaxDirectMemorySize</td>
+<td>修改直接内存大小</td>
+</tr>
+<tr>
+<td>-XX:NewRatio</td>
+<td>修改新生代与老年代比例，默认比例为2</td>
+</tr>
+<tr>
+<td>-XX:SurvivorRatio</td>
+<td>改eden与survivor的比例，默认是8</td>
+</tr>
+<tr>
+<td>-XX:+PrintGC</td>
+<td>打印GC信息，默认禁止</td>
+</tr>
+<tr>
+<td>-XX:+PrintGCDetails</td>
+<td>打印GC详细信息</td>
+</tr>
+<tr>
+<td>-XX:+PrintHeapAtGC</td>
+<td>GC 前后打印堆详细信息</td>
+</tr>
+</tbody></table>
+<a id="more"></a>
+<h3 id="Java-堆相关参数设置"><a href="#Java-堆相关参数设置" class="headerlink" title="Java 堆相关参数设置"></a>Java 堆相关参数设置</h3><ul>
+<li><p>-Xms</p>
+<p>-Xms20M,表示JVM Heap(堆内存)最小尺寸20MB，<strong>最开始只有 -Xms 的参数，表示 <code>初始</code> memory size(m表示memory，s表示size)</strong>，属于初始分配20M，-Xms表示的 <code>初始</code> 内存也有一个 <code>最小</code> 内存的概念（其实常用的做法中初始内存采用的也就是最小内存）。</p>
 </li>
+<li><p>-Xmx</p>
+<p>-Xmx128M,表示JVM Heap(堆内存)<strong>最大允许</strong>的尺寸128MB，按需分配。如果 -Xmx 不指定或者指定偏小，也许出现java.lang.OutOfMemory错误，此错误来自JVM不是Throwable的，无法用try…catch捕捉</p>
+</li>
+</ul>
+<p>当使用如下配置时 -Xms20M -Xmx128M ，JVM 内存情况如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">System.out.print(<span class="string">"Xmx ="</span>);</span><br><span class="line">System.out.println(Runtime.getRuntime().maxMemory() / <span class="number">1024.0</span> / <span class="number">1024</span> + <span class="string">"M"</span>);</span><br><span class="line"></span><br><span class="line">System.out.print(<span class="string">"free mem ="</span>);</span><br><span class="line">System.out.println(Runtime.getRuntime().freeMemory() / <span class="number">1024.0</span> / <span class="number">1024</span> + <span class="string">"M"</span>);</span><br><span class="line"></span><br><span class="line">System.out.print(<span class="string">"total mem ="</span>);</span><br><span class="line">System.out.println(Runtime.getRuntime().totalMemory() / <span class="number">1024.0</span> / <span class="number">1024</span> + <span class="string">"M"</span>);</span><br><span class="line"></span><br><span class="line">--output</span><br><span class="line">Xmx =<span class="number">114.0</span>M</span><br><span class="line">free mem =<span class="number">17.08477020263672</span>M</span><br><span class="line">total mem =<span class="number">19.5</span>M</span><br></pre></td></tr></table></figure>
+
+<p><strong>Java会尽量的维持在最小堆运行，即使设置的最大值很大，只有当GC之后也无法满足最小堆，才会去扩容。</strong></p>
+<ul>
+<li><p>Xmn</p>
+<p>新生代堆内存大小</p>
+</li>
+<li><p>-XX:NewRatio</p>
+<p>新生代和老年代的比值，如 XX:NewRatio4 表示（eden+s0+s1) : 老年代 = 1：4</p>
+</li>
+<li><p>XX:SurvivorRatio</p>
+<p>两个 Survivor 区和 Eden 区的比值，比如-XX:SurvivorRatio8表示两个 Survivor : eden=2:8，即一个Survivor占年轻代的1/10。</p>
+</li>
+<li><p>OOM时导出堆到文件进行内存分析和问题排查</p>
+<p>-XX:+HeapDumpOnOutOfMemoryError，-XX:+HeapDumpPath 导出OOM的路径，比如：</p>
+<p>-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/a.dump</p>
+</li>
+<li><p>栈大小分配 -Xss</p>
+<p>通常只有几百K，一般很少调大，它的大小决定了函数调用的深度。如果想跑更多的线程，需要把栈用 -Xss 尽量调小，而不是变大！因为线程越多，每个线程都要分配内存空间，这样每个栈的空间越大，占据的内存越多。但是也得预防很深的函数调用可能导致栈内存溢出问题，比如不合适的递归调用（斐波拉契数列计算）。</p>
+</li>
+</ul>
+<h4 id="堆的分配参数总结"><a href="#堆的分配参数总结" class="headerlink" title="堆的分配参数总结"></a>堆的分配参数总结</h4><ul>
+<li>根据实际事情调整新生代和幸存代的大小</li>
+<li>官方推荐新生代占堆的3/8</li>
+<li>幸存代占新生代的1/10</li>
+<li>在OOM时，记得Dump出堆，确保可以排查现场问题</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/" data-id="ckb1wf8tu000cv8kk27qc20xa" class="article-share-link" data-share="baidu" data-title="Java Jackson Json 处理_2">Share</a>
+        <a data-url="http://yoursite.com/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/" data-id="ckb1wf8to0003v8kk5hdxdjmt" class="article-share-link" data-share="baidu" data-title="JVM 参数学习">Share</a>
       
 
       
-        <a href="http://yoursite.com/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/#ds-thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -135,19 +203,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/06/04/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E5%91%BD%E4%BB%A4/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          常用的Docker命令
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/06/04/Java-BigDecimal/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Java 装箱拆箱</div>
+      <div class="article-nav-title">Java BigDecimal</div>
     </a>
   
 </nav>
@@ -157,7 +216,7 @@
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2020/06/04/Java-Jackson-Json-处理-2/" data-title="Java Jackson Json 处理_2" data-url="http://yoursite.com/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/06/05/JVM-参数学习/" data-title="JVM 参数学习" data-url="http://yoursite.com/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/"></div>
   </section>
 </section>
       
