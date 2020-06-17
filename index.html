@@ -68,6 +68,164 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-Java-开发-注意篇" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%B3%A8%E6%84%8F%E7%AF%87/" class="article-date">
+  <time datetime="2020-06-17T05:36:32.000Z" itemprop="datePublished">2020-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%B3%A8%E6%84%8F%E7%AF%87/">Java 开发-注意篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p><strong>replace和replaceAll</strong></p>
+<p>很多同学到现在可能都还没有弄清楚在Java中这两者之间的区别，可能是受其他语言的影响，也有可能是看字面意思只认“replaceAll”。事实上，这两个都是用于将一个字符串里的所有指定的字符或者字符串替换为目标字符或字符串，并非是明面上的“替换”和“替换所有”。唯一的区别在于，前者只支持普通字符或字符串的替换，而后者支持正则表达式匹配替换（接受的第一个参数是正则表达式，这要特别注意，因为很多字符会被当成是正则的特殊字符）。从效率上来说前者优于后者，所以，视情况选择吧。</p>
+</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%B3%A8%E6%84%8F%E7%AF%87/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%B3%A8%E6%84%8F%E7%AF%87/" data-id="ckbixfr1v000ei0kketcccunh" class="article-share-link" data-share="baidu" data-title="Java 开发-注意篇">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%B3%A8%E6%84%8F%E7%AF%87/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Java-开发-效率篇" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/" class="article-date">
+  <time datetime="2020-06-17T05:27:42.000Z" itemprop="datePublished">2020-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/">Java 开发-效率篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Java-开发-效率篇"><a href="#Java-开发-效率篇" class="headerlink" title="Java 开发-效率篇"></a>Java 开发-效率篇</h2><ul>
+<li><strong>注意SQLServer中的字符串型的字段类型</strong><br>眼尖的同事应该都有发现我们在框架上的有关SQLServer的JDBC连接字符串中的“sendStringParametersAsUnicode=false”参数，遗憾的是，目前为止，仅有一名同学向我发出了疑问。为什么要使用它？答案是为了最大限度地避免出现隐式转换。JDBC协议定义了Java向数据库服务器发送字符串的两种方式：setString()和setNString()，这两个方法分别用于向SQLServer发送ASCII编码和Unicode编码的字符串。我们应该都知道对于Newegg来说，大部分有关字符串的字段都是CHAR或者VARCHAR，并非带“N”的类型，对于MyBatis和大多数数据层的框架来说默认都使用的是setString()方法，但是微软在其JDBC的实现中若不指定“sendStringParametersAsUnicode=false”参数，即便使用setString()方法，实际向服务器发送的仍然是Unicode编码的字符串，这刚好和我们的字段类型相悖，出现难以排查的隐式转换问题（不走索引）。</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/" data-id="ckbixfr29000ui0kk9738am1h" class="article-share-link" data-share="baidu" data-title="Java 开发-效率篇">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JDK-安装" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/17/JDK-%E5%AE%89%E8%A3%85/" class="article-date">
+  <time datetime="2020-06-17T05:22:39.000Z" itemprop="datePublished">2020-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/17/JDK-%E5%AE%89%E8%A3%85/">JDK 安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JDK-安装"><a href="#JDK-安装" class="headerlink" title="JDK 安装"></a>JDK 安装</h2><p>Java实际上分为三个版本：</p>
+<ul>
+<li>J2ME：Java 2 Micro Edition，适用于移动端的微型版本，曾广泛应用于机顶盒、车载系统、移动数字电话、个人数字助理（PDA）以及一系列嵌入式设备中，和大家接触最多的便是前几年的手机上搭载的J2SE环境，它几乎支撑了智能手机游戏的半边天。</li>
+<li>J2SE：Java 2 Standrad Edition，Java标准版本，只包含基础的Java类库，适用于在桌面端构建Java程序。它是J2ME和J2EE的基础。</li>
+<li>J2EE：Java 2 Enterprise Edition，Java企业版本，包含很多企业级特性，适用于简化企业开发的版本，包含一系列特性，如EJB、JAXB、JDBC API、CORBA、Servlet、JSP等等，实际上我们今天使用的JDK名义上是J2SE，但实际上他已经混入了J2EE的很多特性，算得上是J2EE版本了。</li>
+</ul>
+<p>PS：Java在1.2版本之后统称为Java 2。当然，在当下“Java”这种叫法已经是熟路的叫法了。</p>
+<p><strong>我们在开发中一般安装的是J2SE，若需要J2EE的一些特性我们一般是通过Maven去关联支持类库的。</strong></p>
+        
+          <p class="article-more-link">
+            <a href="/2020/06/17/JDK-%E5%AE%89%E8%A3%85/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/17/JDK-%E5%AE%89%E8%A3%85/" data-id="ckbixfr1l0001i0kk02kdd7m4" class="article-share-link" data-share="baidu" data-title="JDK 安装">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/17/JDK-%E5%AE%89%E8%A3%85/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JVM-参数学习" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/" class="article-date">
@@ -151,7 +309,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/" data-id="ckb1wf8to0003v8kk5hdxdjmt" class="article-share-link" data-share="baidu" data-title="JVM 参数学习">Share</a>
+        <a data-url="http://yoursite.com/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/" data-id="ckbixfr1q0004i0kkfmdbficv" class="article-share-link" data-share="baidu" data-title="JVM 参数学习">Share</a>
       
 
       
@@ -202,7 +360,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/Java-BigDecimal/" data-id="ckb1wf8tq0005v8kk7x1lch9r" class="article-share-link" data-share="baidu" data-title="Java BigDecimal">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/Java-BigDecimal/" data-id="ckbixfr1o0003i0kkaj1xdplm" class="article-share-link" data-share="baidu" data-title="Java BigDecimal">Share</a>
       
 
       
@@ -262,7 +420,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/Centos-7-%E8%BF%90%E8%A1%8CJava%E7%A8%8B%E5%BA%8F/" data-id="ckb1wf8tg0000v8kkhkdg2d09" class="article-share-link" data-share="baidu" data-title="Centos 7 运行Java程序">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/Centos-7-%E8%BF%90%E8%A1%8CJava%E7%A8%8B%E5%BA%8F/" data-id="ckbixfr1g0000i0kk9rqo6c9u" class="article-share-link" data-share="baidu" data-title="Centos 7 运行Java程序">Share</a>
       
 
       
@@ -311,7 +469,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E5%91%BD%E4%BB%A4/" data-id="ckb1wf8tx000jv8kk951d9yzu" class="article-share-link" data-share="baidu" data-title="常用的Docker命令">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E5%91%BD%E4%BB%A4/" data-id="ckbixfr29000vi0kk2413ft12" class="article-share-link" data-share="baidu" data-title="常用的Docker命令">Share</a>
       
 
       
@@ -367,7 +525,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/" data-id="ckb1wf8tu000cv8kk27qc20xa" class="article-share-link" data-share="baidu" data-title="Java Jackson Json 处理_2">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/" data-id="ckbixfr1r0005i0kkg0fwh3kn" class="article-share-link" data-share="baidu" data-title="Java Jackson Json 处理_2">Share</a>
       
 
       
@@ -468,7 +626,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" data-id="ckb1wf8tr0008v8kk352lciho" class="article-share-link" data-share="baidu" data-title="Java 装箱拆箱">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" data-id="ckbixfr1z000mi0kk0l426u8p" class="article-share-link" data-share="baidu" data-title="Java 装箱拆箱">Share</a>
       
 
       
@@ -527,169 +685,11 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/" data-id="ckb1wf8tx000hv8kkcka6e8tg" class="article-share-link" data-share="baidu" data-title="Java编程中为了性能尽量要做到的一些地方">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/" data-id="ckbixfr1x000ji0kk6t1xgog7" class="article-share-link" data-share="baidu" data-title="Java编程中为了性能尽量要做到的一些地方">Share</a>
       
 
       
         <a href="http://yoursite.com/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/#ds-thread" class="article-comment-link">Comments</a>
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Java-中-和-equals-的区别" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/" class="article-date">
-  <time datetime="2020-06-04T08:57:44.000Z" itemprop="datePublished">2020-06-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/">Java 中 == 和 equals() 的区别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="和-equals-的区别"><a href="#和-equals-的区别" class="headerlink" title="== 和 equals() 的区别"></a>== 和 equals() 的区别</h3><p>由于之后学习装箱和拆箱的时候中会使用到 == 和 equals() 两种方式来进行两个对象的对比，所以这里先看下在 Java 中 ==  和 equals()的区别。</p>
-        
-          <p class="article-more-link">
-            <a href="/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://yoursite.com/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/" data-id="ckb1wf8ts0009v8kk2y3r250i" class="article-share-link" data-share="baidu" data-title="Java 中 == 和 equals() 的区别">Share</a>
-      
-
-      
-        <a href="http://yoursite.com/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/#ds-thread" class="article-comment-link">Comments</a>
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-finalize-方法与对象复活" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/" class="article-date">
-  <time datetime="2020-06-04T08:55:15.000Z" itemprop="datePublished">2020-06-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/">finalize 方法与对象复活</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h3><p>finalize 是Object的 protected 方法，子类可以覆盖该方法以实现资源清理工作，GC在回收对象之前调用该方法。</p>
-<p><strong>finalize()在什么时候被调用?</strong></p>
-<ul>
-<li>所有对象被Garbage Collection时自动调用,比如运行 System.gc() 的时候。</li>
-<li>程序退出时为每个对象调用一次finalize方法。</li>
-<li>显式的调用finalize方法。
-        
-          <p class="article-more-link">
-            <a href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://yoursite.com/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/" data-id="ckb1wf8tv000ev8kkcrc6g3yi" class="article-share-link" data-share="baidu" data-title="finalize 方法与对象复活">Share</a>
-      
-
-      
-        <a href="http://yoursite.com/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/#ds-thread" class="article-comment-link">Comments</a>
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Java Jackson Json 处理_1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/" class="article-date">
-  <time datetime="2020-06-04T08:55:15.000Z" itemprop="datePublished">2020-06-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/">Java Jackson Json 处理_1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>目前我们 Java 框架中使用的 Json 处理组件是 Jackson,所以这里学习下 Jackson 一些基础特性。</p>
-<p>Jackson 的核心模块由三部分组成。</p>
-<ul>
-<li>jackson-core，核心包，提供基于”流模式”解析的相关 API，它包括 JsonPaser 和 JsonGenerator。 Jackson 内部实现正是通过高性能的流模式 API 的 JsonGenerator 和 JsonParser 来生成和解析 json。</li>
-<li>jackson-annotations，注解包，提供标准注解功能；</li>
-<li>jackson-databind ，数据绑定包， 提供基于”对象绑定” 解析的相关 API （ ObjectMapper ） 和”树模型” 解析的相关 API （JsonNode）；基于”对象绑定” 解析的 API 和”树模型”解析的 API 依赖基于”流模式”解析的 API。</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://yoursite.com/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/" data-id="ckb1wf8tl0001v8kk60j2bx94" class="article-share-link" data-share="baidu" data-title="Java Jackson Json 处理_1">Share</a>
-      
-
-      
-        <a href="http://yoursite.com/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -717,7 +717,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -735,7 +735,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">12</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">15</span></li></ul>
     </div>
   </div>
 
@@ -747,23 +747,23 @@
       <ul>
         
           <li>
+            <a href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%B3%A8%E6%84%8F%E7%AF%87/">Java 开发-注意篇</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/">Java 开发-效率篇</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/17/JDK-%E5%AE%89%E8%A3%85/">JDK 安装</a>
+          </li>
+        
+          <li>
             <a href="/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/">JVM 参数学习</a>
           </li>
         
           <li>
             <a href="/2020/06/04/Java-BigDecimal/">Java BigDecimal</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/04/Centos-7-%E8%BF%90%E8%A1%8CJava%E7%A8%8B%E5%BA%8F/">Centos 7 运行Java程序</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/04/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E5%91%BD%E4%BB%A4/">常用的Docker命令</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/">Java Jackson Json 处理_2</a>
           </li>
         
       </ul>
