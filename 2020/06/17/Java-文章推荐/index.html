@@ -4,17 +4,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>JDK 安装 | Lewis&#39;s blog</title>
+  <title>Java 文章推荐 | Lewis&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="JDK 安装Java实际上分为三个版本：  J2ME：Java 2 Micro Edition，适用于移动端的微型版本，曾广泛应用于机顶盒、车载系统、移动数字电话、个人数字助理（PDA）以及一系列嵌入式设备中，和大家接触最多的便是前几年的手机上搭载的J2SE环境，它几乎支撑了智能手机游戏的半边天。 J2SE：Java 2 Standrad Edition，Java标准版本，只包含基础的Java类库">
+  <meta name="description" content="知识点：Java内存模型JVM内存模型一直以来是中高级应试者必须面临的问题，happens-before（Java5+, JSR-133）到底描述了什么？volatile关键字的作用在哪里？http:&#x2F;&#x2F;ifeve.com&#x2F;java-memory-model-1&#x2F;   开源组件：Netty没错，网络编程高级程序员的最爱，稳定和高性能一直是它的闪亮标签，甚至很多比他名气还要大的开源组件底层也是基于">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JDK 安装">
-<meta property="og:url" content="http://yoursite.com/2020/06/17/JDK-%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:title" content="Java 文章推荐">
+<meta property="og:url" content="http://yoursite.com/2020/06/17/Java-%E6%96%87%E7%AB%A0%E6%8E%A8%E8%8D%90/index.html">
 <meta property="og:site_name" content="Lewis&#39;s blog">
-<meta property="og:description" content="JDK 安装Java实际上分为三个版本：  J2ME：Java 2 Micro Edition，适用于移动端的微型版本，曾广泛应用于机顶盒、车载系统、移动数字电话、个人数字助理（PDA）以及一系列嵌入式设备中，和大家接触最多的便是前几年的手机上搭载的J2SE环境，它几乎支撑了智能手机游戏的半边天。 J2SE：Java 2 Standrad Edition，Java标准版本，只包含基础的Java类库">
+<meta property="og:description" content="知识点：Java内存模型JVM内存模型一直以来是中高级应试者必须面临的问题，happens-before（Java5+, JSR-133）到底描述了什么？volatile关键字的作用在哪里？http:&#x2F;&#x2F;ifeve.com&#x2F;java-memory-model-1&#x2F;   开源组件：Netty没错，网络编程高级程序员的最爱，稳定和高性能一直是它的闪亮标签，甚至很多比他名气还要大的开源组件底层也是基于">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-06-17T05:22:39.000Z">
-<meta property="article:modified_time" content="2020-06-17T05:23:25.871Z">
+<meta property="article:published_time" content="2020-06-17T05:44:12.000Z">
+<meta property="article:modified_time" content="2020-06-17T05:44:29.266Z">
 <meta property="article:author" content="Lewis Liu">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -71,10 +71,10 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-JDK-安装" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-Java-文章推荐" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/06/17/JDK-%E5%AE%89%E8%A3%85/" class="article-date">
-  <time datetime="2020-06-17T05:22:39.000Z" itemprop="datePublished">2020-06-17</time>
+    <a href="/2020/06/17/Java-%E6%96%87%E7%AB%A0%E6%8E%A8%E8%8D%90/" class="article-date">
+  <time datetime="2020-06-17T05:44:12.000Z" itemprop="datePublished">2020-06-17</time>
 </a>
     
   </div>
@@ -85,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      JDK 安装
+      Java 文章推荐
     </h1>
   
 
@@ -93,43 +93,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="JDK-安装"><a href="#JDK-安装" class="headerlink" title="JDK 安装"></a>JDK 安装</h2><p>Java实际上分为三个版本：</p>
-<ul>
-<li>J2ME：Java 2 Micro Edition，适用于移动端的微型版本，曾广泛应用于机顶盒、车载系统、移动数字电话、个人数字助理（PDA）以及一系列嵌入式设备中，和大家接触最多的便是前几年的手机上搭载的J2SE环境，它几乎支撑了智能手机游戏的半边天。</li>
-<li>J2SE：Java 2 Standrad Edition，Java标准版本，只包含基础的Java类库，适用于在桌面端构建Java程序。它是J2ME和J2EE的基础。</li>
-<li>J2EE：Java 2 Enterprise Edition，Java企业版本，包含很多企业级特性，适用于简化企业开发的版本，包含一系列特性，如EJB、JAXB、JDBC API、CORBA、Servlet、JSP等等，实际上我们今天使用的JDK名义上是J2SE，但实际上他已经混入了J2EE的很多特性，算得上是J2EE版本了。</li>
-</ul>
-<p>PS：Java在1.2版本之后统称为Java 2。当然，在当下“Java”这种叫法已经是熟路的叫法了。</p>
-<p><strong>我们在开发中一般安装的是J2SE，若需要J2EE的一些特性我们一般是通过Maven去关联支持类库的。</strong></p>
+        <ol>
+<li>知识点：Java内存模型<br>JVM内存模型一直以来是中高级应试者必须面临的问题，happens-before（Java5+, JSR-133）到底描述了什么？volatile关键字的作用在哪里？<br><a href="http://ifeve.com/java-memory-model-2/" target="_blank" rel="noopener">http://ifeve.com/java-memory-model-1/</a></li>
+</ol>
+<ol start="2">
+<li>开源组件：Netty<br>没错，网络编程高级程序员的最爱，稳定和高性能一直是它的闪亮标签，甚至很多比他名气还要大的开源组件底层也是基于它的。了解一下吧，你还可以学到一些Java BIO和Java NIO的知识。<br><a href="http://ifeve.com/netty-in-action-1/" target="_blank" rel="noopener">http://ifeve.com/netty-in-action-1/</a></li>
+</ol>
+<ol start="3">
+<li><p>知识点：Java中的双重检查锁<br>Java在使用单列模式时会出现一些问题，如何完美地写出一个单例模式？JVM内存模型对其又有什么影响？<br><a href="https://blog.csdn.net/chenchaofuck1/article/details/51702129" target="_blank" rel="noopener">https://blog.csdn.net/chenchaofuck1/article/details/51702129</a></p>
 <a id="more"></a>
-
-<h2 id="JRE和JDK的区别"><a href="#JRE和JDK的区别" class="headerlink" title="JRE和JDK的区别"></a>JRE和JDK的区别</h2><p>JRE是Java运行环境，只包含了Java程序运行时所需要的一系列类库（Binary），他可以被精简至更小。JDK则是Java开发包，除了包含一整套JRE还包含有一些列为开发者提供的工具（命令行工具和GUI工具）用于管理Java程序（jjs、jmc、jps、jvisualvm、jstatck、jhat、jdoc等等一系列工具），还包含大部分内置类库的源码（包括Native方法的源码）。</p>
-<h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><h3 id="1、下载安装包"><a href="#1、下载安装包" class="headerlink" title="1、下载安装包"></a>1、下载安装包</h3><ul>
-<li>在Oracle官网<a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html找到你想要下载的安装包，由于2019年后java会开始收费，故我们只能使用java" target="_blank" rel="noopener">https://www.oracle.com/technetwork/java/javase/downloads/index.html找到你想要下载的安装包，由于2019年后java会开始收费，故我们只能使用java</a> 8 固定版本。详细参见 <a href="https://confluence.newegg.org/pages/viewpage.action?pageId=25157106" target="_blank" rel="noopener">00.关于Java开始收费的说明</a>，因此我们只选择jdk1.8.0_181.rar之前的版本，并且只选择<strong>小版本号为奇数</strong>（如8u<strong>191</strong>）的安装包。</li>
-<li>离线window x64的JDK压缩包</li>
-</ul>
-<h3 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a><strong>2、安装</strong></h3><p>linux和windows都可以下载安装版和压缩包，安装过程略过。个人推荐压缩包，下载后解压即可。</p>
-<h3 id="3、配置环境变量"><a href="#3、配置环境变量" class="headerlink" title="3、配置环境变量"></a>3、配置环境变量</h3><ul>
-<li><p>Windows<br>在Windows上需要配置的环境变量为JAVA_HOME、Path和Classpath（Classpath在Java1.5之后可以不设置）<br>JAVA_HOME: 全路径，指向你的JDK目录，注意，<strong>一定是jdkXXX这种目录</strong><br>Path: .;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;%JAVA_HOME%\bin; (不要忘了前面的小点)</p>
 </li>
-<li><p>Linux</p>
-<p>在Linux下配置环境变量需要注意，你需要根据你的实际情况选择是配置全局的环境变量还是该用户下的环境变量。全局环境变量请修改/etc/propfile，用户环境变量请修改~/.bash_profile</p>
-<p>在上述文件末尾加入：</p>
-<p>export JAVA_HOME=/usr/opt/java/jdkXXX<br>export PATH=$JAVA_HOME/bin:$PATH<br>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</p>
-<p>保存后执行source &lt;你刚刚修改的文件&gt;</p>
+<li><p>开源组件：Guava<br>Guava是谷歌在Java平台的开源工具包，它的很多特性都被后来的Java版本吸收，足见其影响力之大。<br><a href="https://ifeve.com/google-guava/" target="_blank" rel="noopener">https://ifeve.com/google-guava/</a></p>
 </li>
-</ul>
-<p>至此，配置完毕，请打开控制台输入javac命令验证。若出现响应则说明配置成功，若出现“不能识别的指令”则说明配置失败，请按照上文修改。</p>
+</ol>
+<ol start="5">
+<li>开源组件：Spring framework<br>要接触Java或者有一点了解Java的人都应该听过它的大名了，没听过？那我不写了…<br>Spring的家族很大，几乎Java的各种实际应用场合它都有涉足，它的源码更是优美至极，很多开发者对其源码趋之若鹜，是Javaer的学习宝典。<br>spring-core、spring-web、spring-boot、spring-boot-stater、spring-cloud、spring-aop、spring-mvc、spring-security，太多了，去它的官网了解吧。<br><a href="https://spring.io/" target="_blank" rel="noopener">https://spring.io</a></li>
+</ol>
+<ol start="6">
+<li>知识点：Java8<br>Java8是公认的带来最多特性的一个版本，现阶段很大一部分人的开发都基于Java8，加之Oracle对java11收费，我相信Java8还能撑很长一段时间。<br><a href="https://blog.csdn.net/yitian_66/article/details/81010434" target="_blank" rel="noopener">https://blog.csdn.net/yitian_66/article/details/81010434</a></li>
+</ol>
+<ol start="7">
+<li>开源组件：MyBatis<br>Java开发者喜闻乐见的一款针对RDBMS的持久化框架。<br><a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener">http://www.mybatis.org/mybatis-3/zh/index.html</a></li>
+</ol>
+<ol start="8">
+<li>开源组件：Hibernate<br>通常所说的Hibernate是一个持久化框架（RDBMS）。早期的Java开发者中意于SSH框架，指的是struts+spring+hibernate，后来MyBatis兴起，又成了SSM框架。不管怎样，它无法被替代，因为它是一个ORM框架，和MyBatis有本质区别。Hibernate专注于数据这块，另外还实现了Java的数据校验接口，提供了丰富的数据校验API。<br><a href="http://hibernate.org/" target="_blank" rel="noopener">http://hibernate.org/</a></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/17/JDK-%E5%AE%89%E8%A3%85/" data-id="ckbj3jpdt00060skk22ak0dfp" class="article-share-link" data-share="baidu" data-title="JDK 安装">Share</a>
+        <a data-url="http://yoursite.com/2020/06/17/Java-%E6%96%87%E7%AB%A0%E6%8E%A8%E8%8D%90/" data-id="ckbj3jpe7000m0skk2cxkbyxt" class="article-share-link" data-share="baidu" data-title="Java 文章推荐">Share</a>
       
 
       
-        <a href="http://yoursite.com/2020/06/17/JDK-%E5%AE%89%E8%A3%85/#ds-thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2020/06/17/Java-%E6%96%87%E7%AB%A0%E6%8E%A8%E8%8D%90/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -141,19 +139,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Java 开发-效率篇
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%B3%A8%E6%84%8F%E7%AF%87/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">JVM 参数学习</div>
+      <div class="article-nav-title">Java 开发-注意篇</div>
     </a>
   
 </nav>
@@ -163,7 +152,7 @@
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2020/06/17/JDK-安装/" data-title="JDK 安装" data-url="http://yoursite.com/2020/06/17/JDK-%E5%AE%89%E8%A3%85/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/06/17/Java-文章推荐/" data-title="Java 文章推荐" data-url="http://yoursite.com/2020/06/17/Java-%E6%96%87%E7%AB%A0%E6%8E%A8%E8%8D%90/"></div>
   </section>
 </section>
       
