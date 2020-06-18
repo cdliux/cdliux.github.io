@@ -68,6 +68,108 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-Apache-Http-Client-使用注意事项" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/18/Apache-Http-Client-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="article-date">
+  <time datetime="2020-06-18T02:36:17.000Z" itemprop="datePublished">2020-06-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/18/Apache-Http-Client-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">Apache Http Client 使用注意事项 </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Apache-Http-Client-使用注意事项"><a href="#Apache-Http-Client-使用注意事项" class="headerlink" title="Apache Http Client 使用注意事项"></a>Apache Http Client 使用注意事项</h3><blockquote>
+<p>The typical reason to set a <code>SO_LINGER</code> timeout of zero is to avoid large numbers of connections sitting in the <code>TIME_WAIT</code> state, tying up all the available resources on a server. </p>
+<p> When a TCP connection is closed cleanly, the end that initiated the close (“active close”) ends up with the connection sitting in <code>TIME_WAIT</code> for several minutes. So if your protocol is one where the <em>server</em> initiates the connection close, and involves very large numbers of short-lived connections, then it might be susceptible to this problem. </p>
+<p> This isn’t a good idea, though - <code>TIME_WAIT</code> exists for a reason (to ensure that stray packets from old connections don’t interfere with new connections). It’s a better idea to redesign your protocol to one where the client initiates the connection close, if possible. </p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2020/06/18/Apache-Http-Client-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/18/Apache-Http-Client-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" data-id="ckbk6d07t00005wkk55q77wzk" class="article-share-link" data-share="baidu" data-title="Apache Http Client 使用注意事项 ">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/18/Apache-Http-Client-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Boyer-Moore字符串匹配" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/18/Boyer-Moore%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/" class="article-date">
+  <time datetime="2020-06-18T02:28:41.000Z" itemprop="datePublished">2020-06-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/18/Boyer-Moore%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/">Boyer-Moore字符串匹配</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Boyer-Moore是一种快速的字符串匹配算法，它对目标字符串（模式串）进行倒序查找，并在字符串匹配失败时无需像暴力查找那样对整个模式串进行重新匹配，而是通过坏字符和好后缀计算滑动窗口，降低查询的时间复杂度。<br>如图：在 文本HERE IS A  SIMPLE EXAMPLE中查找模式串EXAMPLE。Boyer-Moore算法（下文简称B-M算法）从模式串的最后一个位置开始与文本进行比较，模式串中的E与文本中的S不匹配，则称字符S为坏字符。<br><img src="https://upload-images.jianshu.io/upload_images/19433926-193bf53fc6aad958.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
+        
+          <p class="article-more-link">
+            <a href="/2020/06/18/Boyer-Moore%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/18/Boyer-Moore%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/" data-id="ckbk6d07y00015wkk4uwf7zrf" class="article-share-link" data-share="baidu" data-title="Boyer-Moore字符串匹配">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/18/Boyer-Moore%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Java-文章推荐" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/17/Java-%E6%96%87%E7%AB%A0%E6%8E%A8%E8%8D%90/" class="article-date">
@@ -107,7 +209,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/17/Java-%E6%96%87%E7%AB%A0%E6%8E%A8%E8%8D%90/" data-id="ckbj3jpe7000m0skk2cxkbyxt" class="article-share-link" data-share="baidu" data-title="Java 文章推荐">Share</a>
+        <a data-url="http://yoursite.com/2020/06/17/Java-%E6%96%87%E7%AB%A0%E6%8E%A8%E8%8D%90/" data-id="ckbk6d08e000v5wkk3noqejc4" class="article-share-link" data-share="baidu" data-title="Java 文章推荐">Share</a>
       
 
       
@@ -160,7 +262,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%B3%A8%E6%84%8F%E7%AF%87/" data-id="ckbj3jpe2000e0skkfrw2fyvi" class="article-share-link" data-share="baidu" data-title="Java 开发-注意篇">Share</a>
+        <a data-url="http://yoursite.com/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%B3%A8%E6%84%8F%E7%AF%87/" data-id="ckbk6d089000j5wkk5411d3l1" class="article-share-link" data-share="baidu" data-title="Java 开发-注意篇">Share</a>
       
 
       
@@ -209,7 +311,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/" data-id="ckbj3jpe6000k0skk67ae89wb" class="article-share-link" data-share="baidu" data-title="Java 开发-效率篇">Share</a>
+        <a data-url="http://yoursite.com/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/" data-id="ckbk6d089000h5wkk045q74nn" class="article-share-link" data-share="baidu" data-title="Java 开发-效率篇">Share</a>
       
 
       
@@ -265,7 +367,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/17/JDK-%E5%AE%89%E8%A3%85/" data-id="ckbj3jpdt00060skk22ak0dfp" class="article-share-link" data-share="baidu" data-title="JDK 安装">Share</a>
+        <a data-url="http://yoursite.com/2020/06/17/JDK-%E5%AE%89%E8%A3%85/" data-id="ckbk6d08200045wkk7gxvhpfc" class="article-share-link" data-share="baidu" data-title="JDK 安装">Share</a>
       
 
       
@@ -365,7 +467,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/" data-id="ckbj3jpdu00090skkeggu7b3y" class="article-share-link" data-share="baidu" data-title="JVM 参数学习">Share</a>
+        <a data-url="http://yoursite.com/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/" data-id="ckbk6d08300055wkk30m537y4" class="article-share-link" data-share="baidu" data-title="JVM 参数学习">Share</a>
       
 
       
@@ -416,7 +518,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/Java-BigDecimal/" data-id="ckbj3jpdu00070skkdpute58x" class="article-share-link" data-share="baidu" data-title="Java BigDecimal">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/Java-BigDecimal/" data-id="ckbk6d08400085wkk4b4x1tk1" class="article-share-link" data-share="baidu" data-title="Java BigDecimal">Share</a>
       
 
       
@@ -476,7 +578,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/Centos-7-%E8%BF%90%E8%A1%8CJava%E7%A8%8B%E5%BA%8F/" data-id="ckbj3jpcx00000skkeokp5tbb" class="article-share-link" data-share="baidu" data-title="Centos 7 运行Java程序">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/Centos-7-%E8%BF%90%E8%A1%8CJava%E7%A8%8B%E5%BA%8F/" data-id="ckbk6d08100035wkk24ulbc3z" class="article-share-link" data-share="baidu" data-title="Centos 7 运行Java程序">Share</a>
       
 
       
@@ -525,7 +627,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E5%91%BD%E4%BB%A4/" data-id="ckbj3jpej000u0skkaztc26qc" class="article-share-link" data-share="baidu" data-title="常用的Docker命令">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E5%91%BD%E4%BB%A4/" data-id="ckbk6d08e000t5wkkbxtxfy1l" class="article-share-link" data-share="baidu" data-title="常用的Docker命令">Share</a>
       
 
       
@@ -534,163 +636,6 @@
 
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Java-Jackson-Json-处理-2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/" class="article-date">
-  <time datetime="2020-06-04T10:10:07.000Z" itemprop="datePublished">2020-06-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/">Java Jackson Json 处理_2</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h4><ul>
-<li><h5 id="泛型反序列化"><a href="#泛型反序列化" class="headerlink" title="泛型反序列化"></a>泛型反序列化</h5><p>在 Jackson 中，如果处理泛型类型的反序列化 ,可以调用 constructXXXType 系列方法构造需要的类型来进行，也可以构造 TypeReference 来反序列化。在我们老版本的 OatuhClient 中可以看到这样的使用方式。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CollectionType javaType = objectMapper.getTypeFactory().constructCollectionType(List<span class="class">.<span class="keyword">class</span>, <span class="title">MyBean</span>.<span class="title">class</span>)</span>;</span><br><span class="line">List&lt;MyBean&gt; myList = objectMapper.readValue(json, <span class="keyword">new</span> TypeReference&lt;List&lt;MyBean&gt;&gt;() &#123;&#125;);</span><br><span class="line">List&lt;MyBean&gt; myList2 = objectMapper.readValue(json, javaType);</span><br></pre></td></tr></table></figure>
-
-<p>Map 的处理方法类似：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MapType javaType = objectMapper</span><br><span class="line">           .getTypeFactory()</span><br><span class="line">           .constructMapType(HashMap<span class="class">.<span class="keyword">class</span>,<span class="title">String</span>.<span class="title">class</span> ,<span class="title">MyBean</span>.<span class="title">class</span>)</span>;</span><br><span class="line">HashMap&lt;String,MyBean&gt; beanMap = objectMapper.readValue(json,javaType);</span><br><span class="line">HashMap&lt;String,MyBean&gt; beanMap2 = objectMapper.readValue(json, <span class="keyword">new</span> TypeReference&lt;HashMap&lt;String, MyBean&gt;&gt;() &#123;&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>​    </p>
-        
-          <p class="article-more-link">
-            <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://yoursite.com/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/" data-id="ckbj3jpdv000b0skk0eun55va" class="article-share-link" data-share="baidu" data-title="Java Jackson Json 处理_2">Share</a>
-      
-
-      
-        <a href="http://yoursite.com/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/#ds-thread" class="article-comment-link">Comments</a>
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Java-装箱拆箱" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" class="article-date">
-  <time datetime="2020-06-04T09:03:42.000Z" itemprop="datePublished">2020-06-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/">Java 装箱拆箱</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="什么是装箱和拆箱"><a href="#什么是装箱和拆箱" class="headerlink" title="什么是装箱和拆箱"></a>什么是装箱和拆箱</h4><p>在 Java 中，当基本数据类型和其对应的包装类型进行运算的时候，编译器会帮我们自动进行转换，这就是装箱和拆箱。简单来说，从基本类型转为包装类型即为装箱，从包装类型转为基本类型即为拆箱。</p>
-<p>Java 中基本类型和其对应的包装类型。</p>
-<table>
-<thead>
-<tr>
-<th>基本类型</th>
-<th>包装类型</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>int</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>float</td>
-<td>Float</td>
-</tr>
-<tr>
-<td>double</td>
-<td>Double</td>
-</tr>
-<tr>
-<td>byte</td>
-<td>Byte</td>
-</tr>
-<tr>
-<td>char</td>
-<td>Character</td>
-</tr>
-<tr>
-<td>long</td>
-<td>Long</td>
-</tr>
-<tr>
-<td>short</td>
-<td>Short</td>
-</tr>
-<tr>
-<td>boolean</td>
-<td>Boolean</td>
-</tr>
-</tbody></table>
-<p>当表格中左边列出的基本类型与它们的包装类有如下几种情况时，编译器会<strong>自动</strong>帮我们进行装箱或拆箱.</p>
-<ul>
-<li><p>进行 = 赋值操作（装箱或拆箱）</p>
-</li>
-<li><p>进行+，-，*，/混合运算 （拆箱）</p>
-</li>
-<li><p>进行&gt;,&lt;,==比较运算（拆箱）</p>
-</li>
-<li><p>调用equals进行比较（装箱）</p>
-</li>
-<li><p>ArrayList,HashMap等集合类 添加基础类型数据时（装箱）</p>
-        
-          <p class="article-more-link">
-            <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://yoursite.com/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" data-id="ckbj3jpe9000q0skkdqvw06nh" class="article-share-link" data-share="baidu" data-title="Java 装箱拆箱">Share</a>
-      
-
-      
-        <a href="http://yoursite.com/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/#ds-thread" class="article-comment-link">Comments</a>
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
 
     </footer>
   </div>
@@ -714,7 +659,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -723,7 +668,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a>
+      <a href="/tags/Algorithm/" style="font-size: 10px;">Algorithm</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a>
     </div>
   </div>
 
@@ -732,7 +677,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">16</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">18</span></li></ul>
     </div>
   </div>
 
@@ -744,6 +689,14 @@
       <ul>
         
           <li>
+            <a href="/2020/06/18/Apache-Http-Client-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">Apache Http Client 使用注意事项 </a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/18/Boyer-Moore%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/">Boyer-Moore字符串匹配</a>
+          </li>
+        
+          <li>
             <a href="/2020/06/17/Java-%E6%96%87%E7%AB%A0%E6%8E%A8%E8%8D%90/">Java 文章推荐</a>
           </li>
         
@@ -753,14 +706,6 @@
         
           <li>
             <a href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/">Java 开发-效率篇</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/17/JDK-%E5%AE%89%E8%A3%85/">JDK 安装</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/">JVM 参数学习</a>
           </li>
         
       </ul>

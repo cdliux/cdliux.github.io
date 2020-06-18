@@ -68,6 +68,163 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-Java-Jackson-Json-处理-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/" class="article-date">
+  <time datetime="2020-06-04T10:10:07.000Z" itemprop="datePublished">2020-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/">Java Jackson Json 处理_2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h4><ul>
+<li><h5 id="泛型反序列化"><a href="#泛型反序列化" class="headerlink" title="泛型反序列化"></a>泛型反序列化</h5><p>在 Jackson 中，如果处理泛型类型的反序列化 ,可以调用 constructXXXType 系列方法构造需要的类型来进行，也可以构造 TypeReference 来反序列化。在我们老版本的 OatuhClient 中可以看到这样的使用方式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CollectionType javaType = objectMapper.getTypeFactory().constructCollectionType(List<span class="class">.<span class="keyword">class</span>, <span class="title">MyBean</span>.<span class="title">class</span>)</span>;</span><br><span class="line">List&lt;MyBean&gt; myList = objectMapper.readValue(json, <span class="keyword">new</span> TypeReference&lt;List&lt;MyBean&gt;&gt;() &#123;&#125;);</span><br><span class="line">List&lt;MyBean&gt; myList2 = objectMapper.readValue(json, javaType);</span><br></pre></td></tr></table></figure>
+
+<p>Map 的处理方法类似：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MapType javaType = objectMapper</span><br><span class="line">           .getTypeFactory()</span><br><span class="line">           .constructMapType(HashMap<span class="class">.<span class="keyword">class</span>,<span class="title">String</span>.<span class="title">class</span> ,<span class="title">MyBean</span>.<span class="title">class</span>)</span>;</span><br><span class="line">HashMap&lt;String,MyBean&gt; beanMap = objectMapper.readValue(json,javaType);</span><br><span class="line">HashMap&lt;String,MyBean&gt; beanMap2 = objectMapper.readValue(json, <span class="keyword">new</span> TypeReference&lt;HashMap&lt;String, MyBean&gt;&gt;() &#123;&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+        
+          <p class="article-more-link">
+            <a href="/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/" data-id="ckbk6d085000a5wkkefodbbzu" class="article-share-link" data-share="baidu" data-title="Java Jackson Json 处理_2">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/04/Java-Jackson-Json-%E5%A4%84%E7%90%86-2/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Java-装箱拆箱" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" class="article-date">
+  <time datetime="2020-06-04T09:03:42.000Z" itemprop="datePublished">2020-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/">Java 装箱拆箱</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="什么是装箱和拆箱"><a href="#什么是装箱和拆箱" class="headerlink" title="什么是装箱和拆箱"></a>什么是装箱和拆箱</h4><p>在 Java 中，当基本数据类型和其对应的包装类型进行运算的时候，编译器会帮我们自动进行转换，这就是装箱和拆箱。简单来说，从基本类型转为包装类型即为装箱，从包装类型转为基本类型即为拆箱。</p>
+<p>Java 中基本类型和其对应的包装类型。</p>
+<table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th>包装类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<p>当表格中左边列出的基本类型与它们的包装类有如下几种情况时，编译器会<strong>自动</strong>帮我们进行装箱或拆箱.</p>
+<ul>
+<li><p>进行 = 赋值操作（装箱或拆箱）</p>
+</li>
+<li><p>进行+，-，*，/混合运算 （拆箱）</p>
+</li>
+<li><p>进行&gt;,&lt;,==比较运算（拆箱）</p>
+</li>
+<li><p>调用equals进行比较（装箱）</p>
+</li>
+<li><p>ArrayList,HashMap等集合类 添加基础类型数据时（装箱）</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" data-id="ckbk6d08a000l5wkk27wo6tvl" class="article-share-link" data-share="baidu" data-title="Java 装箱拆箱">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/04/Java-%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-为了性能尽量要做到的一些地方" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/" class="article-date">
@@ -110,7 +267,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/" data-id="ckbj3jpe8000o0skk6jdufid1" class="article-share-link" data-share="baidu" data-title="Java编程中为了性能尽量要做到的一些地方">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/%E4%B8%BA%E4%BA%86%E6%80%A7%E8%83%BD%E5%B0%BD%E9%87%8F%E8%A6%81%E5%81%9A%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9C%B0%E6%96%B9/" data-id="ckbk6d08f000y5wkk7h28dwr1" class="article-share-link" data-share="baidu" data-title="Java编程中为了性能尽量要做到的一些地方">Share</a>
       
 
       
@@ -159,11 +316,65 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/" data-id="ckbj3jpe3000f0skkbzsxdtk0" class="article-share-link" data-share="baidu" data-title="Java 中 == 和 equals() 的区别">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/" data-id="ckbk6d08c000p5wkk5lfwcvn9" class="article-share-link" data-share="baidu" data-title="Java 中 == 和 equals() 的区别">Share</a>
       
 
       
         <a href="http://yoursite.com/2020/06/04/Java-%E4%B8%AD-%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-finalize-方法与对象复活" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/" class="article-date">
+  <time datetime="2020-06-04T08:55:15.000Z" itemprop="datePublished">2020-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/">finalize 方法与对象复活</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h3><p>finalize 是Object的 protected 方法，子类可以覆盖该方法以实现资源清理工作，GC在回收对象之前调用该方法。</p>
+<p><strong>finalize()在什么时候被调用?</strong></p>
+<ul>
+<li>所有对象被Garbage Collection时自动调用,比如运行 System.gc() 的时候。</li>
+<li>程序退出时为每个对象调用一次finalize方法。</li>
+<li>显式的调用finalize方法。
+        
+          <p class="article-more-link">
+            <a href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/" data-id="ckbk6d08b000n5wkk8dkj5l0x" class="article-share-link" data-share="baidu" data-title="finalize 方法与对象复活">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -214,65 +425,11 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/" data-id="ckbj3jpdh00030skkbj2l7jbt" class="article-share-link" data-share="baidu" data-title="Java Jackson Json 处理_1">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/" data-id="ckbk6d086000d5wkkdt965zzl" class="article-share-link" data-share="baidu" data-title="Java Jackson Json 处理_1">Share</a>
       
 
       
         <a href="http://yoursite.com/2020/06/04/Java%20Jackson%20Json%20%E5%A4%84%E7%90%86_1/#ds-thread" class="article-comment-link">Comments</a>
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-finalize-方法与对象复活" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/" class="article-date">
-  <time datetime="2020-06-04T08:55:15.000Z" itemprop="datePublished">2020-06-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/">finalize 方法与对象复活</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h3><p>finalize 是Object的 protected 方法，子类可以覆盖该方法以实现资源清理工作，GC在回收对象之前调用该方法。</p>
-<p><strong>finalize()在什么时候被调用?</strong></p>
-<ul>
-<li>所有对象被Garbage Collection时自动调用,比如运行 System.gc() 的时候。</li>
-<li>程序退出时为每个对象调用一次finalize方法。</li>
-<li>显式的调用finalize方法。
-        
-          <p class="article-more-link">
-            <a href="/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://yoursite.com/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/" data-id="ckbj3jpe5000i0skkhvlgdihk" class="article-share-link" data-share="baidu" data-title="finalize 方法与对象复活">Share</a>
-      
-
-      
-        <a href="http://yoursite.com/2020/06/04/finalize-%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%A4%8D%E6%B4%BB/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -322,7 +479,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/" data-id="ckbj3jpei000t0skk7k1h8lsl" class="article-share-link" data-share="baidu" data-title="使用 Optional 类避免 NPE">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/%E4%BD%BF%E7%94%A8-Optional-%E7%B1%BB%E9%81%BF%E5%85%8D-NPE/" data-id="ckbk6d08d000r5wkk7v852onk" class="article-share-link" data-share="baidu" data-title="使用 Optional 类避免 NPE">Share</a>
       
 
       
@@ -375,7 +532,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2020/06/04/Java-Object-%E7%B1%BB%E6%96%B9%E6%B3%95%E6%A6%82%E8%A7%88/" data-id="ckbj3jpe4000g0skk3a3z7ych" class="article-share-link" data-share="baidu" data-title="Java Object 类方法概览">Share</a>
+        <a data-url="http://yoursite.com/2020/06/04/Java-Object-%E7%B1%BB%E6%96%B9%E6%B3%95%E6%A6%82%E8%A7%88/" data-id="ckbk6d088000f5wkkaevs8ja1" class="article-share-link" data-share="baidu" data-title="Java Object 类方法概览">Share</a>
       
 
       
@@ -407,7 +564,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -416,7 +573,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a>
+      <a href="/tags/Algorithm/" style="font-size: 10px;">Algorithm</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a>
     </div>
   </div>
 
@@ -425,7 +582,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">16</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">18</span></li></ul>
     </div>
   </div>
 
@@ -437,6 +594,14 @@
       <ul>
         
           <li>
+            <a href="/2020/06/18/Apache-Http-Client-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">Apache Http Client 使用注意事项 </a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/18/Boyer-Moore%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/">Boyer-Moore字符串匹配</a>
+          </li>
+        
+          <li>
             <a href="/2020/06/17/Java-%E6%96%87%E7%AB%A0%E6%8E%A8%E8%8D%90/">Java 文章推荐</a>
           </li>
         
@@ -446,14 +611,6 @@
         
           <li>
             <a href="/2020/06/17/Java-%E5%BC%80%E5%8F%91-%E6%95%88%E7%8E%87%E7%AF%87/">Java 开发-效率篇</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/17/JDK-%E5%AE%89%E8%A3%85/">JDK 安装</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/05/JVM-%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0/">JVM 参数学习</a>
           </li>
         
       </ul>
